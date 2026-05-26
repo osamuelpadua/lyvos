@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LYVOS · Ecossistema Nutricional · FalaNutri 29.05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================================
+   LYVOS · FalaNutri Landing — v2
+   Dark-mode dominant · Playfair Display headlines
+   ===================================================================== */
+
+:root {
+  --sand-lightest: #ede4d7;
+  --sand-light: #dccbb7;
+  --sand-mid: #b8a892;
+  --terracota: #b76244;
+  --brown-mid: #8a5338;
+  --brown-deep: #603a32;
+
+  /* surface tokens — deep warm-black, derived from brown family */
+  --ink: #1d1311;             /* main dark surface */
+  --ink-2: #16100e;           /* deepest, for max-impact blocks */
+  --ink-3: #2a1c17;           /* slightly lifted card surface */
+  --border: rgba(184, 168, 146, 0.12);
+  --border-strong: rgba(184, 168, 146, 0.22);
+
+  --font-display: 'Playfair Display', 'Times New Roman', serif;
+  --font-body: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+
+  --pad-x: clamp(24px, 6vw, 140px);
+  --section-y: clamp(96px, 12vw, 180px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  background: var(--ink);
+  color: var(--sand-lightest);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+
+/* ---------- shared tokens ---------- */
+.section {
+  padding: var(--section-y) var(--pad-x);
+  position: relative;
+  isolation: isolate;
+}
+.section--deep {
+  background: var(--ink);
+  position: relative;
+}
+/* hero gets a soft terracota warmth glowing from the right */
+.section--deep.hero::after {
+  content: "";
+  position: absolute;
+  top: -10%; right: -20%;
+  width: 70vw; height: 110%;
+  background: radial-gradient(ellipse at center, rgba(183, 98, 68, 0.18) 0%, rgba(183, 98, 68, 0.04) 35%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+.section--deeper { background: var(--ink-2); position: relative; }
+.section--mid {
+  background: var(--ink);
+  position: relative;
+}
+.section--mid::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(138, 83, 56, 0.22) 0%, transparent 55%);
+  pointer-events: none;
+}
+.section--sand { background: var(--sand-lightest); color: var(--brown-deep); }
+
+.section > * { position: relative; z-index: 1; }
+
+.wrap { max-width: 1320px; margin: 0 auto; }
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--terracota);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+}
+.eyebrow .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--terracota);
+  display: inline-block;
+}
+
+/* ---------- type ---------- */
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+  color: var(--sand-lightest);
+}
+.italic { font-style: italic; font-weight: 400; color: var(--sand-light); }
+.section--sand h1, .section--sand h2, .section--sand h3 { color: var(--brown-deep); }
+
+h1 { font-size: clamp(2.4rem, 5.6vw, 4.6rem); }
+h2 { font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.08; }
+
+p { font-size: 1.0625rem; color: var(--sand-light); }
+.section--sand p { color: rgba(96, 58, 50, 0.82); }
+@media (min-width: 1024px) { p { font-size: 1.1rem; } }
+
+.lead { font-size: clamp(0.98rem, 1.2vw, 1.1rem); line-height: 1.78; max-width: 56ch; }
+
+.hairline {
+  display: block;
+  height: 1px;
+  width: 56px;
+  background: var(--terracota);
+  border: 0;
+}
+.hairline--soft { background: var(--border-strong); width: 64px; }
+.hairline--full { width: 100%; background: var(--border); }
+
+/* =====================================================================
+   ISOTIPO · concentric rings + radiating rays (matches product mark)
+   ===================================================================== */
+.isotipo svg { width: 100%; height: 100%; }
+
+/* =====================================================================
+   HEADER
+   ===================================================================== */
+.header {
+  position: absolute;
+  top: clamp(28px, 3.6vw, 44px);
+  left: var(--pad-x);
+  right: var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+.brandmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--sand-lightest);
+  text-decoration: none;
+}
+.brandmark__iso { width: 30px; height: 30px; flex-shrink: 0; }
+.brandmark__type {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.65rem;
+  letter-spacing: 0.18em;
+  color: var(--sand-lightest);
+  line-height: 1;
+  position: relative;
+}
+.brandmark__sub {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.46rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--sand-mid);
+  margin-top: 4px;
+}
+.brandmark__lockup { display: flex; flex-direction: column; }
+.brandmark__lockup .row {
+  display: flex; align-items: baseline; gap: 8px;
+}
+
+.header__nav {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sand-mid);
+}
+@media (max-width: 640px) {
+  .header__nav { display: none; }
+  .brandmark__type { font-size: 1.35rem; }
+}
+
+/* =====================================================================
+   HERO
+   ===================================================================== */
+.hero {
+  padding-top: clamp(150px, 16vw, 200px);
+  padding-bottom: 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+}
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(56px, 6vw, 96px);
+  padding-bottom: clamp(72px, 9vw, 120px);
+  position: relative;
+}
+@media (min-width: 1024px) {
+  .hero__inner { grid-template-columns: 1.05fr 1fr; align-items: center; }
+}
+.hero__copy { max-width: 720px; }
+.hero h1 {
+  margin: 0 0 36px;
+  font-weight: 500;
+}
+.hero h1 .line { display: block; }
+.hero h1 .line--italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--sand-mid);
+}
+.hero h1 .line--italic .brandword {
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--sand-light);
+}
+
+.hero__lead {
+  color: var(--sand-light);
+  max-width: 52ch;
+  font-size: 0.94rem;
+  line-height: 1.75;
+  margin-bottom: 36px;
+}
+.hero__lead strong { color: var(--sand-lightest); font-weight: 700; }
+.hero__sub {
+  color: var(--sand-mid);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 1.45;
+  padding-left: 18px;
+  border-left: 1px solid var(--terracota);
+}
+
+.hero__iso {
+  position: absolute;
+  top: 0;
+  right: -6%;
+  width: clamp(420px, 44vw, 720px);
+  height: clamp(420px, 44vw, 720px);
+  opacity: 0.10;
+  pointer-events: none;
+}
+
+/* marquee strip */
+.marquee {
+  background: transparent;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  padding: 18px 0;
+  margin: 0 calc(var(--pad-x) * -1);
+}
+.marquee__track {
+  display: flex;
+  gap: 64px;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+  white-space: nowrap;
+}
+.marquee__item {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--terracota);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.marquee__item .dot {
+  width: 6px; height: 6px;
+  background: var(--terracota);
+  border-radius: 50%;
+  display: inline-block;
+}
+.marquee__item .accent { color: var(--sand-light); font-weight: 400; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* =====================================================================
+   FORM CARD (used in hero + final)
+   ===================================================================== */
+.form-card {
+  background: rgba(42, 28, 23, 0.55);
+  border: 1px solid var(--border-strong);
+  padding: clamp(32px, 3vw, 44px);
+  border-radius: 6px;
+  position: relative;
+  backdrop-filter: blur(2px);
+}
+.form-card__label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: var(--sand-mid);
+  margin-bottom: 28px;
+  display: block;
+}
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: 32px;
+}
+.field { position: relative; }
+.field input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--sand-mid);
+  color: var(--sand-lightest);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 1rem;
+  padding: 12px 0 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.field input::placeholder {
+  color: rgba(184, 168, 146, 0.65);
+  font-weight: 300;
+}
+.field input:focus { border-bottom-color: var(--terracota); }
+.field.invalid input { border-bottom-color: var(--terracota); }
+.field.invalid::after {
+  content: 'Campo obrigatório';
+  position: absolute;
+  bottom: -18px; left: 0;
+  font-size: 0.66rem;
+  color: var(--terracota);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--terracota);
+  color: var(--sand-lightest);
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  padding: 20px 28px;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+}
+.cta:hover { background: var(--brown-mid); }
+.cta:active { transform: translateY(1px); }
+
+.form-success {
+  display: none;
+  margin-top: 20px;
+  padding: 16px 18px;
+  background: rgba(183, 98, 68, 0.16);
+  border-left: 2px solid var(--terracota);
+  color: var(--sand-lightest);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+}
+.form-success.show { display: block; }
+.form-footnote {
+  margin-top: 22px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--sand-mid);
+  text-align: center;
+}
+
+/* =====================================================================
+   BLOCO 2 · A DOR (dark)
+   ===================================================================== */
+.pain__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(56px, 6vw, 100px);
+}
+@media (min-width: 1024px) { .pain__grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+.pain h2 { max-width: 22ch; margin-bottom: 36px; }
+.pain h2 .italic { display: block; }
+.pain__intro { max-width: 52ch; margin-bottom: 26px; color: var(--sand-light); }
+
+.pain__list-title {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sand-mid);
+  margin-bottom: 30px;
+}
+.pain__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 44px;
+}
+.pain__list li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 16px;
+  font-size: 1.0625rem;
+  color: var(--sand-light);
+  line-height: 1.65;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+.pain__list li:last-child { border-bottom: 0; }
+.pain__list li::before {
+  content: "—";
+  color: var(--terracota);
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.65;
+}
+.pain__close {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  color: var(--sand-lightest);
+  line-height: 1.3;
+  max-width: 24ch;
+}
+
+/* =====================================================================
+   FOUNDER QUOTE
+   ===================================================================== */
+.quote {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+  max-width: 1080px;
+  margin: clamp(80px, 9vw, 140px) auto 0;
+}
+@media (min-width: 1024px) {
+  .quote { grid-template-columns: 300px 1fr; }
+  .quote--right { grid-template-columns: 1fr 300px; }
+  .quote--right .quote__photo { order: 2; }
+  .quote--right .quote__body { order: 1; }
+}
+.quote__photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 300px;
+  background: rgba(184, 168, 146, 0.10);
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--sand-mid);
+  border: 1px solid var(--border-strong);
+}
+.section--sand .quote__photo {
+  background: rgba(184, 168, 146, 0.32);
+  color: var(--brown-mid);
+  border-color: rgba(184, 168, 146, 0.55);
+}
+.quote__photo svg { width: 56px; height: 56px; opacity: 0.7; }
+.quote__photo span {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.quote__mark {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 4rem;
+  line-height: 0.7;
+  color: var(--terracota);
+  margin-bottom: 16px;
+  display: block;
+}
+.quote__text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.7vw, 1.55rem);
+  line-height: 1.45;
+  margin-bottom: 28px;
+  max-width: 52ch;
+  color: var(--sand-lightest);
+}
+.section--sand .quote__text { color: var(--brown-deep); }
+.quote__attr {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sand-mid);
+  line-height: 1.7;
+}
+.quote__attr strong { color: var(--sand-lightest); font-weight: 700; }
+.section--sand .quote__attr { color: var(--brown-mid); }
+.section--sand .quote__attr strong { color: var(--brown-deep); }
+.quote__attr .role {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+  color: var(--sand-light);
+  margin-top: 10px;
+  font-weight: 400;
+}
+.section--sand .quote__attr .role { color: rgba(96, 58, 50, 0.7); }
+
+/* =====================================================================
+   BLOCO 3 · ECOSSISTEMA + COMUNIDADE (deeper dark)
+   ===================================================================== */
+.eco { position: relative; overflow: hidden; }
+.eco h2 { max-width: 22ch; margin-bottom: 32px; }
+.eco h2 .italic { display: block; }
+.eco__intro { max-width: 56ch; margin-bottom: 64px; }
+
+.eco__deliverables-title {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sand-mid);
+  margin-bottom: 40px;
+}
+.eco__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-bottom: clamp(72px, 8vw, 100px);
+  border-top: 1px solid var(--border);
+}
+@media (min-width: 768px) {
+  .eco__list {
+    grid-template-columns: 1fr 1fr;
+    border-left: 1px solid var(--border);
+  }
+}
+.eco__list li {
+  display: block;
+  padding: 36px 32px 36px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+@media (min-width: 768px) {
+  .eco__list li { padding: 36px 36px; border-right: 1px solid var(--border); }
+}
+.eco__list li::before {
+  content: "—";
+  display: inline-block;
+  color: var(--terracota);
+  font-size: 1.2rem;
+  margin-right: 12px;
+}
+.eco__list .item-name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: var(--sand-lightest);
+  margin-bottom: 14px;
+  display: inline;
+}
+.eco__list .item-desc {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: var(--sand-light);
+  line-height: 1.7;
+  font-size: 0.98rem;
+}
+
+.eco__manifesto {
+  text-align: center;
+  max-width: 980px;
+  margin: 0 auto clamp(60px, 8vw, 100px);
+  padding: clamp(48px, 6vw, 80px) 0;
+  position: relative;
+}
+.eco__manifesto .hairline {
+  margin: 0 auto 36px;
+  background: var(--border-strong);
+}
+.eco__manifesto .hairline + .hairline { margin: 36px auto 0; }
+.eco__manifesto p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  line-height: 1.32;
+  color: var(--sand-lightest);
+}
+.eco__manifesto p .accent { color: var(--terracota); font-style: normal; font-weight: 500; }
+
+.eco__iso {
+  position: absolute;
+  left: -10%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(360px, 36vw, 600px);
+  height: clamp(360px, 36vw, 600px);
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* =====================================================================
+   BLOCO 4 · CONTRASTE (dark table)
+   ===================================================================== */
+.contrast h2 { max-width: 24ch; margin-bottom: 48px; }
+
+.compare {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid var(--border);
+  font-size: 0.98rem;
+}
+.compare th, .compare td {
+  padding: 26px 28px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+.compare thead th {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  padding: 26px 28px;
+  color: var(--sand-mid);
+}
+.compare thead th:nth-child(1) { width: 22%; }
+.compare thead th:nth-child(2) { width: 36%; }
+.compare thead th:nth-child(3) {
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--sand-lightest);
+  width: 42%;
+  border-left: 3px solid var(--terracota);
+  font-weight: 700;
+}
+.compare tbody td:first-child {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--sand-lightest);
+  letter-spacing: -0.005em;
+}
+.compare tbody td:nth-child(2) {
+  color: var(--sand-mid);
+  font-style: italic;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+.compare tbody td:nth-child(3) {
+  background: rgba(42, 28, 23, 0.55);
+  border-left: 3px solid var(--terracota);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--sand-light);
+}
+.compare thead th:nth-child(3) { background: rgba(42, 28, 23, 0.7); }
+.compare tbody tr:hover td { background-color: rgba(220, 203, 183, 0.02); }
+.compare tbody tr:hover td:nth-child(3) { background: rgba(42, 28, 23, 0.75); }
+
+/* mobile accordion */
+.accordion { display: none; }
+@media (max-width: 768px) {
+  .compare-wrap { display: none; }
+  .accordion { display: block; border-top: 1px solid var(--border); }
+  .accordion__row { border-bottom: 1px solid var(--border); }
+  .accordion__head {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    text-align: left;
+    padding: 22px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--sand-lightest);
+    cursor: pointer;
+  }
+  .accordion__head .plus {
+    color: var(--terracota);
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+  .accordion__row.open .accordion__head .plus { transform: rotate(45deg); }
+  .accordion__body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .accordion__row.open .accordion__body { max-height: 500px; }
+  .accordion__col { padding: 12px 0 24px; }
+  .accordion__label {
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sand-mid);
+    margin-bottom: 8px;
+  }
+  .accordion__col.lyvos .accordion__label { color: var(--terracota); }
+  .accordion__col p { font-size: 0.95rem; line-height: 1.6; color: var(--sand-light); }
+  .accordion__col.versus p { font-family: var(--font-display); font-style: italic; }
+  .accordion__col.lyvos {
+    border-left: 3px solid var(--terracota);
+    padding-left: 16px;
+    margin-top: 18px;
+  }
+}
+
+/* =====================================================================
+   BLOCO 5 · URGÊNCIA E ESCASSEZ
+   ===================================================================== */
+.scarcity { position: relative; overflow: hidden; }
+.scarcity__top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(48px, 6vw, 96px);
+  align-items: center;
+  margin-bottom: clamp(80px, 9vw, 140px);
+}
+@media (min-width: 1024px) { .scarcity__top { grid-template-columns: 0.85fr 1.15fr; } }
+
+.scarcity h2 { max-width: 18ch; margin-bottom: 36px; }
+.scarcity h2 .italic { display: block; }
+.scarcity__body p { max-width: 52ch; margin-bottom: 22px; line-height: 1.78; }
+
+.scarcity__num-wrap {
+  text-align: center;
+  position: relative;
+  padding: clamp(40px, 5vw, 60px) 0;
+}
+.scarcity__num-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sand-mid);
+  margin-bottom: 24px;
+}
+.scarcity__number {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(9rem, 24vw, 18rem);
+  line-height: 0.85;
+  color: var(--terracota);
+  letter-spacing: -0.05em;
+  display: inline-block;
+  position: relative;
+}
+.scarcity__number .iso-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130%; height: 130%;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.scarcity__num-after {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.4;
+  color: var(--sand-light);
+  margin-top: 28px;
+  max-width: 20ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.scarcity__conditions {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.7;
+  color: var(--sand-light);
+  max-width: 920px;
+  margin: 0 auto clamp(80px, 9vw, 120px);
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.scarcity__conditions .sep { color: var(--terracota); margin: 0 0.6em; font-style: normal; }
+.scarcity__conditions .label {
+  display: block;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.7rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--terracota);
+  margin-bottom: 20px;
+}
+
+/* =====================================================================
+   BLOCO 6 · CAPTURA DEFINITIVA (deep dark · final commit)
+   ===================================================================== */
+.final { position: relative; overflow: hidden; }
+.final__inner { max-width: 720px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
+.final h2 { max-width: 22ch; margin: 0 auto 32px; }
+.final h2 .italic { display: block; }
+.final__lead { max-width: 56ch; margin: 0 auto 24px; }
+.final__lead.last { margin-bottom: 56px; }
+.final .form-card { text-align: left; margin-top: 24px; }
+
+.final__iso {
+  position: absolute;
+  top: -10%; right: -10%;
+  width: clamp(360px, 40vw, 640px);
+  height: clamp(360px, 40vw, 640px);
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* =====================================================================
+   FOOTER
+   ===================================================================== */
+.footer {
+  background: var(--ink-2);
+  padding: clamp(72px, 8vw, 110px) var(--pad-x) clamp(48px, 5vw, 60px);
+  text-align: center;
+  color: var(--sand-mid);
+  position: relative;
+}
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0; left: var(--pad-x); right: var(--pad-x);
+  height: 1px;
+  background: var(--border);
+}
+.footer__brand {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+.footer__brand .brandmark__iso { width: 44px; height: 44px; }
+.footer__type {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 2rem;
+  letter-spacing: 0.22em;
+  color: var(--sand-lightest);
+}
+.footer__tag {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--sand-mid);
+  margin-bottom: 56px;
+}
+.footer__rule {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: 0 auto 32px;
+  max-width: 580px;
+}
+.footer__meta {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(184, 168, 146, 0.55);
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.footer__meta .dot {
+  display: inline-block;
+  width: 3px; height: 3px;
+  background: var(--brown-mid);
+  border-radius: 50%;
+  align-self: center;
+}
+
+/* =====================================================================
+   ANIMATIONS
+   ===================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-stagger > * { opacity: 0; animation: heroFadeUp 0.85s ease-out forwards; }
+.hero-stagger > *:nth-child(1) { animation-delay: 0.15s; }
+.hero-stagger > *:nth-child(2) { animation-delay: 0.3s; }
+.hero-stagger > *:nth-child(3) { animation-delay: 0.5s; }
+.hero-stagger > *:nth-child(4) { animation-delay: 0.7s; }
+.hero-stagger > *:nth-child(5) { animation-delay: 0.85s; }
+.hero__form-wrap { opacity: 0; animation: heroFadeUp 0.85s ease-out forwards; animation-delay: 0.95s; }
+
+/* custom cursor on dark sections (desktop) */
+@media (min-width: 1024px) and (hover: hover) {
+  body { cursor: none; }
+  .section--sand { cursor: auto; }
+  .lyvos-cursor {
+    position: fixed;
+    width: 18px; height: 18px;
+    border: 1px solid var(--terracota);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+    opacity: 0;
+  }
+  .lyvos-cursor.show { opacity: 1; }
+  .lyvos-cursor.hover { width: 36px; height: 36px; background: rgba(183,98,68,0.12); }
+}
+
+@media (max-width: 640px) {
+  .hero { padding-top: 120px; }
+  .header { top: 22px; }
+  .quote__photo { max-width: 100%; }
+  .scarcity__number { font-size: 7.5rem; }
+  .footer__meta { flex-direction: column; gap: 12px; }
+  .footer__meta .dot { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- custom cursor (desktop only) -->
+<div class="lyvos-cursor" id="lyvosCursor" aria-hidden="true"></div>
+
+<!-- ===================================================================
+     HEADER
+     =================================================================== -->
+<header class="header" data-screen-label="Header">
+  <a href="#" class="brandmark" aria-label="LYVOS — Ecossistema Nutricional">
+    <span class="brandmark__iso isotipo" aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <defs>
+          <g id="ray-tick">
+            <rect x="49.4" y="2" width="1.2" height="8" fill="#dccbb7"/>
+          </g>
+        </defs>
+        <!-- outer ring -->
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#dccbb7" stroke-width="0.9"/>
+        <!-- inner ring -->
+        <circle cx="50" cy="50" r="28" fill="none" stroke="#b76244" stroke-width="0.7"/>
+        <!-- center dot -->
+        <circle cx="50" cy="50" r="4" fill="#b76244"/>
+        <!-- radiating rays -->
+        <g>
+          <use href="#ray-tick" transform="rotate(0 50 50)"/>
+          <use href="#ray-tick" transform="rotate(15 50 50)"/>
+          <use href="#ray-tick" transform="rotate(30 50 50)"/>
+          <use href="#ray-tick" transform="rotate(45 50 50)"/>
+          <use href="#ray-tick" transform="rotate(60 50 50)"/>
+          <use href="#ray-tick" transform="rotate(75 50 50)"/>
+          <use href="#ray-tick" transform="rotate(90 50 50)"/>
+          <use href="#ray-tick" transform="rotate(105 50 50)"/>
+          <use href="#ray-tick" transform="rotate(120 50 50)"/>
+          <use href="#ray-tick" transform="rotate(135 50 50)"/>
+          <use href="#ray-tick" transform="rotate(150 50 50)"/>
+          <use href="#ray-tick" transform="rotate(165 50 50)"/>
+          <use href="#ray-tick" transform="rotate(180 50 50)"/>
+          <use href="#ray-tick" transform="rotate(195 50 50)"/>
+          <use href="#ray-tick" transform="rotate(210 50 50)"/>
+          <use href="#ray-tick" transform="rotate(225 50 50)"/>
+          <use href="#ray-tick" transform="rotate(240 50 50)"/>
+          <use href="#ray-tick" transform="rotate(255 50 50)"/>
+          <use href="#ray-tick" transform="rotate(270 50 50)"/>
+          <use href="#ray-tick" transform="rotate(285 50 50)"/>
+          <use href="#ray-tick" transform="rotate(300 50 50)"/>
+          <use href="#ray-tick" transform="rotate(315 50 50)"/>
+          <use href="#ray-tick" transform="rotate(330 50 50)"/>
+          <use href="#ray-tick" transform="rotate(345 50 50)"/>
+        </g>
+      </svg>
+    </span>
+    <span class="brandmark__lockup">
+      <span class="brandmark__type">LYVOS</span>
+      <span class="brandmark__sub">Ecossistema Nutricional</span>
+    </span>
+  </a>
+  <nav class="header__nav">FalaNutri · 29.05 · Fortaleza/CE</nav>
+</header>
+
+<!-- ===================================================================
+     BLOCO 1 · HERO
+     =================================================================== -->
+<section class="section hero section--deep" data-screen-label="01 Hero" data-comment-anchor="hero" style="padding-bottom: 0;">
+  <!-- backdrop isotipo -->
+  <svg class="hero__iso isotipo" viewBox="0 0 600 600" aria-hidden="true">
+    <g fill="none" stroke="#dccbb7" stroke-width="0.8">
+      <circle cx="300" cy="300" r="70"/>
+      <circle cx="300" cy="300" r="120"/>
+      <circle cx="300" cy="300" r="180"/>
+      <circle cx="300" cy="300" r="245"/>
+    </g>
+    <g stroke="#b76244" stroke-width="0.6">
+      <circle cx="300" cy="300" r="285" fill="none"/>
+    </g>
+    <g fill="#dccbb7">
+      <!-- perimeter dots -->
+      <g id="hero-dots-host"></g>
+    </g>
+    <circle cx="300" cy="300" r="14" fill="#b76244"/>
+  </svg>
+
+  <div class="wrap hero__inner">
+    <div class="hero__copy hero-stagger">
+      <h1>
+        <span class="line">O mercado tem sistemas de dieta.</span>
+        <span class="line line--italic">A <span class="brandword">LYVOS</span> é <em>ecossistema</em>.</span>
+        <span class="line line--italic"><em>É comunidade</em>.</span>
+      </h1>
+
+      <p class="hero__lead">Sistemas resolvem prescrição. Ecossistemas resolvem o negócio. Mas o que separa um ecossistema de uma ferramenta cara não é só a tecnologia — é quem está dentro dele. A <strong>LYVOS</strong> foi construída para nutricionistas que operam em outro nível. E esses nutricionistas, quando juntos, constroem algo que nenhum sistema isolado consegue entregar: <strong>referência coletiva, padrão de mercado, comunidade de prática</strong>.</p>
+
+      <p class="hero__sub">Você não entra numa plataforma.<br/>Você entra num movimento.</p>
+    </div>
+
+    <div class="hero__form-wrap">
+      <form class="form-card" data-form id="formHero" novalidate>
+        <span class="form-card__label">Grupo VIP de Fundadores · 45 vagas</span>
+        <div class="form-row">
+          <div class="field"><input type="text" name="nome" placeholder="Nome completo" required /></div>
+          <div class="field"><input type="tel" name="whatsapp" placeholder="WhatsApp" required /></div>
+          <div class="field"><input type="text" name="instagram" placeholder="Instagram (@usuario)" required /></div>
+          <div class="field"><input type="email" name="email" placeholder="E-mail" required /></div>
+        </div>
+        <button type="submit" class="cta">→ Quero entrar no grupo VIP de fundadores</button>
+        <div class="form-success" data-success>✓ Você está na lista. Até o dia 29.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- urgency marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track" id="marqueeTrack">
+      <!-- items injected by JS for seamless loop -->
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     BLOCO 2 · A DOR (dark)
+     =================================================================== -->
+<section class="section section--deeper pain" data-screen-label="02 A Dor">
+  <div class="wrap">
+    <div class="pain__grid">
+      <div>
+        <span class="eyebrow reveal"><span class="dot"></span>O DIAGNÓSTICO</span>
+        <h2 class="reveal" style="margin-top: 28px;">O problema não é só a ferramenta. <span class="italic">É o isolamento que ela não resolve.</span></h2>
+        <hr class="hairline reveal" style="margin: 32px 0;" />
+        <p class="lead pain__intro reveal">O nutricionista brasileiro trabalha sozinho. Agenda sozinho, prescreve sozinho, analisa exame sozinho, tenta crescer sozinho. O mercado de software reforçou esse isolamento: criou ferramentas individuais, vendidas por assinatura individual, com suporte individual. Cada nutricionista resolvendo os mesmos problemas de novo, do zero, sem se conectar com quem já resolveu.</p>
+        <p class="lead pain__intro reveal">Fragmentação de sistema e fragmentação de comunidade são o mesmo problema com duas faces.</p>
+      </div>
+
+      <div>
+        <p class="pain__list-title reveal">O que o nutricionista típico enfrenta sozinho toda semana</p>
+        <ul class="pain__list">
+          <li class="reveal">Como precificar o programa sem parecer caro demais — ou barato demais.</li>
+          <li class="reveal">Como conduzir a anamnese do paciente difícil que chega armado de informação de internet.</li>
+          <li class="reveal">Como crescer o consultório sem trabalhar mais horas.</li>
+          <li class="reveal">Como usar IA sem virar dependente de ferramenta que não entende de clínica.</li>
+          <li class="reveal">Como se posicionar num mercado que cresce em número mas não em profundidade.</li>
+        </ul>
+        <p class="pain__close reveal">A maioria resolve no escuro. Ou não resolve.</p>
+      </div>
+    </div>
+
+    <!-- founder quote · Daniel (photo left) -->
+    <div class="quote reveal">
+      <div class="quote__photo" aria-label="Foto Daniel Coimbra · 300x300px mínimo">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="32" cy="24" r="11"/>
+          <path d="M10 56c2-12 12-18 22-18s20 6 22 18"/>
+        </svg>
+        <span>300 × 300 px mínimo</span>
+      </div>
+      <div class="quote__body">
+        <span class="quote__mark">“</span>
+        <p class="quote__text">A gente não quer ser mais um. A gente quer de fato redefinir o jogo de como o nutricionista utiliza o ecossistema — e como ele se relaciona com outros nutricionistas dentro dele.</p>
+        <p class="quote__attr">
+          <strong>Daniel Coimbra</strong> · Cofundador · LYVOS
+          <span class="role">Nutricionista e mentor com mais de uma década de atuação</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     BLOCO 3 · ECOSSISTEMA + COMUNIDADE
+     =================================================================== -->
+<section class="section section--mid eco" data-screen-label="03 Ecossistema">
+  <svg class="eco__iso isotipo" viewBox="0 0 600 600" aria-hidden="true">
+    <g fill="none" stroke="#ede4d7" stroke-width="1">
+      <circle cx="300" cy="300" r="80"/>
+      <circle cx="300" cy="300" r="140"/>
+      <circle cx="300" cy="300" r="210"/>
+      <circle cx="300" cy="300" r="280"/>
+    </g>
+  </svg>
+
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span>O ECOSSISTEMA + COMUNIDADE</span>
+    <h2 class="reveal" style="margin-top: 28px;">Tecnologia que conecta. <span class="italic">Comunidade que eleva.</span></h2>
+    <hr class="hairline reveal" style="margin: 32px 0;" />
+    <p class="lead eco__intro reveal">A <strong style="color: var(--sand-lightest); font-weight: 700;">LYVOS</strong> é o único ecossistema nutricional que trata tecnologia e comunidade como a mesma coisa. Não como features separadas. Como lógica integrada — porque um nutricionista melhor com ferramenta melhor, dentro de uma comunidade que pratica no mesmo nível, cresce diferente de tudo que existe hoje.</p>
+
+    <p class="eco__deliverables-title reveal">O que o ecossistema entrega</p>
+    <ul class="eco__list">
+      <li class="reveal">
+        <span class="item-name">Clínica integrada</span>
+        <span class="item-desc">Prescrição, análise de exames por quartil preditivo, anamnese por IA em tempo real, avaliação corporal por visão computacional.</span>
+      </li>
+      <li class="reveal">
+        <span class="item-name">Gestão real</span>
+        <span class="item-desc">Dashboard com taxa de remarcação, conversão, ticket médio e financeiro com meta reversa — para parar de crescer no escuro.</span>
+      </li>
+      <li class="reveal">
+        <span class="item-name">IA com governança</span>
+        <span class="item-desc">Arquitetura multi-provider com Gemini e OpenAI em paralelo, parametrizável, com base de dados clínicos própria em construção.</span>
+      </li>
+      <li class="reveal">
+        <span class="item-name">Comunidade de Fundadores</span>
+        <span class="item-desc">Os primeiros 45 nutricionistas que entram formam o núcleo da LYVOS — com acesso direto à equipe, feedback que molda o produto e padrão coletivo de operação.</span>
+      </li>
+    </ul>
+
+    <div class="eco__manifesto reveal">
+      <hr class="hairline hairline--full" />
+      <p>Ecossistema sem comunidade é software. Comunidade sem ecossistema é grupo de WhatsApp. <span class="accent">A LYVOS é as duas coisas ao mesmo tempo.</span></p>
+      <hr class="hairline hairline--full" />
+    </div>
+
+    <!-- founder quote · Jakssuel (photo right) -->
+    <div class="quote quote--right reveal">
+      <div class="quote__body">
+        <span class="quote__mark">“</span>
+        <p class="quote__text">A gente entregaria algo que realmente ia entregar pro mercado o que não existia. Não era mais uma caderneta digital. Era uma outra forma de operar — e de se conectar com quem opera no mesmo nível.</p>
+        <p class="quote__attr">
+          <strong>Jakssuel Alves</strong> · Cofundador · LYVOS
+          <span class="role">Nutricionista e arquiteto operacional do ecossistema</span>
+        </p>
+      </div>
+      <div class="quote__photo" aria-label="Foto Jakssuel Alves · 300x300px mínimo">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="32" cy="24" r="11"/>
+          <path d="M10 56c2-12 12-18 22-18s20 6 22 18"/>
+        </svg>
+        <span>300 × 300 px mínimo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     BLOCO 4 · CONTRASTE (dark table)
+     =================================================================== -->
+<section class="section section--deeper contrast" data-screen-label="04 Contraste">
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span>O CONTRASTE</span>
+    <h2 class="reveal" style="margin-top: 28px;">A diferença entre comprar uma ferramenta <span class="italic">e entrar num ecossistema.</span></h2>
+    <hr class="hairline reveal" style="margin: 32px 0 56px;" />
+
+    <!-- desktop table -->
+    <div class="compare-wrap reveal">
+      <table class="compare">
+        <thead>
+          <tr>
+            <th>O que comparam</th>
+            <th>Sistemas de dieta</th>
+            <th>LYVOS — Ecossistema + Comunidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lógica do produto</td>
+            <td>Ferramenta de prescrição isolada</td>
+            <td>Ecossistema clínico, operacional e comunitário</td>
+          </tr>
+          <tr>
+            <td>Análise de exames</td>
+            <td>Faixa de referência do laboratório</td>
+            <td>Quartil preditivo de otimização clínica</td>
+          </tr>
+          <tr>
+            <td>IA no produto</td>
+            <td>Botão de ChatGPT colado na interface</td>
+            <td>Governança multi-provider com arquitetura nativa</td>
+          </tr>
+          <tr>
+            <td>Comunidade</td>
+            <td>Inexistente — cada um resolve sozinho</td>
+            <td>Núcleo de Fundadores com acesso direto à equipe</td>
+          </tr>
+          <tr>
+            <td>Crescimento coletivo</td>
+            <td>Não considerado</td>
+            <td>Padrão de prática elevado por quem opera junto</td>
+          </tr>
+          <tr>
+            <td>Posicionamento</td>
+            <td>Consulta avulsa num mercado de preço</td>
+            <td>Programas de alto valor dentro de uma categoria nova</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- mobile accordion -->
+    <div class="accordion reveal" id="compareAccordion"></div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     BLOCO 5 · URGÊNCIA E ESCASSEZ
+     =================================================================== -->
+<section class="section section--deep scarcity" data-screen-label="05 Escassez">
+  <div class="wrap">
+    <div class="scarcity__top">
+      <div class="scarcity__num-wrap reveal">
+        <div class="scarcity__num-label">Vagas · Núcleo Fundador</div>
+        <div class="scarcity__number">
+          <svg class="iso-ring isotipo" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="48" fill="none" stroke="#dccbb7" stroke-width="0.4"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#b76244" stroke-width="0.5"/>
+          </svg>
+          45
+        </div>
+        <p class="scarcity__num-after">Não é limite de sistema — é limite de comunidade.</p>
+      </div>
+      <div class="scarcity__body">
+        <span class="eyebrow reveal"><span class="dot"></span>URGÊNCIA E ESCASSEZ</span>
+        <h2 class="reveal" style="margin-top: 28px;">45 vagas. <span class="italic">Não é limite de sistema — é limite de comunidade.</span></h2>
+        <hr class="hairline reveal" style="margin: 32px 0;" />
+        <p class="reveal">Comunidade tem tamanho. As primeiras 45 vagas do Grupo de Fundadores não são apenas sobre onboarding de plataforma — são sobre quem vai compor o núcleo da LYVOS. Quem define o padrão. Quem molda o produto. Quem entra com as condições que não voltam.</p>
+        <p class="reveal">Quando a LYVOS abrir para o mercado geral, o preço muda. A condição muda. O acesso à equipe muda. O que não muda é que os Fundadores já estão dentro — com vantagem de ferramenta, de posicionamento e de comunidade construída antes de todo mundo.</p>
+      </div>
+    </div>
+
+    <p class="scarcity__conditions reveal">
+      <span class="label">Condição de Fundador inclui</span>
+      acesso prioritário à migração completa <span class="sep">·</span> condições comerciais travadas <span class="sep">·</span> onboarding white-glove com a equipe técnica <span class="sep">·</span> entrada no núcleo fundador da comunidade LYVOS
+    </p>
+
+    <!-- founder quote · Jakssuel (photo right) -->
+    <div class="quote quote--right reveal">
+      <div class="quote__body">
+        <span class="quote__mark">“</span>
+        <p class="quote__text">Fazer o cara ficar bom, ser bom, ter uma entrega diferenciada. É isso que a LYVOS faz. E quando esses caras estão juntos, o nível do mercado sobe junto.</p>
+        <p class="quote__attr">
+          <strong>Jakssuel Alves</strong> · Cofundador · LYVOS
+        </p>
+      </div>
+      <div class="quote__photo" aria-label="Foto Jakssuel Alves · 300x300px mínimo">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="32" cy="24" r="11"/>
+          <path d="M10 56c2-12 12-18 22-18s20 6 22 18"/>
+        </svg>
+        <span>300 × 300 px mínimo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     BLOCO 6 · CAPTURA DEFINITIVA (deep dark — commitment moment)
+     =================================================================== -->
+<section class="section section--deeper final" data-screen-label="06 Captura">
+  <svg class="final__iso isotipo" viewBox="0 0 600 600" aria-hidden="true">
+    <g fill="none" stroke="#b76244" stroke-width="0.8">
+      <circle cx="300" cy="300" r="90"/>
+      <circle cx="300" cy="300" r="160"/>
+      <circle cx="300" cy="300" r="230"/>
+      <circle cx="300" cy="300" r="295"/>
+    </g>
+  </svg>
+
+  <div class="final__inner">
+    <span class="eyebrow reveal"><span class="dot"></span>O MOMENTO DE DECIDIR</span>
+    <h2 class="reveal" style="margin-top: 28px;">Você não está comprando uma assinatura. <span class="italic">Está escolhendo um lado.</span></h2>
+    <hr class="hairline reveal" style="margin: 32px auto;" />
+    <p class="lead final__lead reveal">O mercado de nutrição vai se dividir. De um lado, os nutricionistas que continuam resolvendo os mesmos problemas com as mesmas ferramentas fragmentadas, sozinhos. Do outro, os que entraram num ecossistema real — com tecnologia, com método e com uma comunidade que opera no mesmo nível.</p>
+    <p class="lead final__lead last reveal">O FalaNutri, dia 29, é onde essa divisão começa. Preencha abaixo para garantir sua vaga no Grupo VIP de Fundadores.</p>
+
+    <form class="form-card reveal" data-form id="formFinal" novalidate>
+      <span class="form-card__label">Núcleo de Fundadores · 45 vagas</span>
+      <div class="form-row">
+        <div class="field"><input type="text" name="nome" placeholder="Nome completo" required /></div>
+        <div class="field"><input type="tel" name="whatsapp" placeholder="WhatsApp" required /></div>
+        <div class="field"><input type="text" name="instagram" placeholder="Instagram (@usuario)" required /></div>
+        <div class="field"><input type="email" name="email" placeholder="E-mail" required /></div>
+      </div>
+      <button type="submit" class="cta">→ Quero entrar no núcleo de fundadores</button>
+      <div class="form-success" data-success>✓ Você está na lista. Até o dia 29.</div>
+      <p class="form-footnote">Apenas participantes do FalaNutri · 29 de maio · 45 vagas · Fortaleza, CE</p>
+    </form>
+  </div>
+
+  <!-- founder quote · Daniel (photo left) -->
+  <div class="wrap">
+    <div class="quote reveal" style="margin-top: clamp(80px, 9vw, 140px);">
+      <div class="quote__photo" aria-label="Foto Daniel Coimbra · 300x300px mínimo">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="32" cy="24" r="11"/>
+          <path d="M10 56c2-12 12-18 22-18s20 6 22 18"/>
+        </svg>
+        <span>300 × 300 px mínimo</span>
+      </div>
+      <div class="quote__body">
+        <span class="quote__mark">“</span>
+        <p class="quote__text">Tu não vai ser substituído pela IA. Tu vai usar a IA para ficar muito mais forte — e vais crescer junto com outros nutricionistas que entenderam isso antes do mercado.</p>
+        <p class="quote__attr">
+          <strong>Daniel Coimbra</strong> · Cofundador · LYVOS
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     RODAPÉ
+     =================================================================== -->
+<footer class="footer" data-screen-label="Footer">
+  <div class="footer__brand">
+    <span class="brandmark__iso isotipo" aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#dccbb7" stroke-width="0.9"/>
+        <circle cx="50" cy="50" r="28" fill="none" stroke="#b76244" stroke-width="0.7"/>
+        <circle cx="50" cy="50" r="4" fill="#b76244"/>
+        <g>
+          <use href="#ray-tick" transform="rotate(0 50 50)"/>
+          <use href="#ray-tick" transform="rotate(15 50 50)"/>
+          <use href="#ray-tick" transform="rotate(30 50 50)"/>
+          <use href="#ray-tick" transform="rotate(45 50 50)"/>
+          <use href="#ray-tick" transform="rotate(60 50 50)"/>
+          <use href="#ray-tick" transform="rotate(75 50 50)"/>
+          <use href="#ray-tick" transform="rotate(90 50 50)"/>
+          <use href="#ray-tick" transform="rotate(105 50 50)"/>
+          <use href="#ray-tick" transform="rotate(120 50 50)"/>
+          <use href="#ray-tick" transform="rotate(135 50 50)"/>
+          <use href="#ray-tick" transform="rotate(150 50 50)"/>
+          <use href="#ray-tick" transform="rotate(165 50 50)"/>
+          <use href="#ray-tick" transform="rotate(180 50 50)"/>
+          <use href="#ray-tick" transform="rotate(195 50 50)"/>
+          <use href="#ray-tick" transform="rotate(210 50 50)"/>
+          <use href="#ray-tick" transform="rotate(225 50 50)"/>
+          <use href="#ray-tick" transform="rotate(240 50 50)"/>
+          <use href="#ray-tick" transform="rotate(255 50 50)"/>
+          <use href="#ray-tick" transform="rotate(270 50 50)"/>
+          <use href="#ray-tick" transform="rotate(285 50 50)"/>
+          <use href="#ray-tick" transform="rotate(300 50 50)"/>
+          <use href="#ray-tick" transform="rotate(315 50 50)"/>
+          <use href="#ray-tick" transform="rotate(330 50 50)"/>
+          <use href="#ray-tick" transform="rotate(345 50 50)"/>
+        </g>
+      </svg>
+    </span>
+    <span class="footer__type">LYVOS</span>
+  </div>
+  <p class="footer__tag">Ecossistema Nutricional</p>
+  <div class="footer__rule"></div>
+  <div class="footer__meta">
+    <span>FalaNutri · 29 de maio</span>
+    <span class="dot"></span>
+    <span>Fortaleza, CE</span>
+    <span class="dot"></span>
+    <span>© 2026 LYVOS</span>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   MARQUEE · build seamless track
+   ===================================================================== */
+(function () {
+  const track = document.getElementById('marqueeTrack');
+  if (!track) return;
+  const itemHTML = `
+    <span class="marquee__item">
+      <span class="dot"></span>
+      EXCLUSIVO PARA PARTICIPANTES DO FALANUTRI <span class="accent">· 29 DE MAIO</span>
+    </span>
+  `;
+  // duplicate enough to fill at least 2x viewport for seamless loop
+  const copies = 8;
+  track.innerHTML = itemHTML.repeat(copies);
+})();
+
+/* =====================================================================
+   INTERSECTION OBSERVER · scroll reveal w/ stagger
+   ===================================================================== */
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  const groupDelays = new WeakMap();
+  els.forEach((el) => {
+    const parent = el.parentElement;
+    if (!parent) return;
+    const siblings = Array.from(parent.querySelectorAll(':scope > .reveal'));
+    const idx = siblings.indexOf(el);
+    if (idx >= 0) groupDelays.set(el, idx * 100);
+  });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const d = groupDelays.get(entry.target) || 0;
+        setTimeout(() => entry.target.classList.add('in'), d);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  els.forEach((el) => io.observe(el));
+})();
+
+/* =====================================================================
+   FORM VALIDATION
+   ===================================================================== */
+document.querySelectorAll('[data-form]').forEach((form) => {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fields = form.querySelectorAll('.field');
+    let valid = true;
+    fields.forEach((f) => {
+      const input = f.querySelector('input');
+      if (!input.value.trim()) {
+        f.classList.add('invalid');
+        valid = false;
+      } else {
+        f.classList.remove('invalid');
+      }
+      if (input.type === 'email' && input.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+        f.classList.add('invalid');
+        valid = false;
+      }
+    });
+    if (!valid) return;
+    const success = form.querySelector('[data-success]');
+    if (success) success.classList.add('show');
+    const cta = form.querySelector('.cta');
+    cta.disabled = true;
+    cta.style.opacity = '0.55';
+  });
+  form.querySelectorAll('input').forEach((input) => {
+    input.addEventListener('input', () => {
+      input.closest('.field').classList.remove('invalid');
+    });
+  });
+});
+
+/* =====================================================================
+   ACCORDION · mobile comparison
+   ===================================================================== */
+(function () {
+  const rows = [
+    ['Lógica do produto', 'Ferramenta de prescrição isolada', 'Ecossistema clínico, operacional e comunitário'],
+    ['Análise de exames', 'Faixa de referência do laboratório', 'Quartil preditivo de otimização clínica'],
+    ['IA no produto', 'Botão de ChatGPT colado na interface', 'Governança multi-provider com arquitetura nativa'],
+    ['Comunidade', 'Inexistente — cada um resolve sozinho', 'Núcleo de Fundadores com acesso direto à equipe'],
+    ['Crescimento coletivo', 'Não considerado', 'Padrão de prática elevado por quem opera junto'],
+    ['Posicionamento', 'Consulta avulsa num mercado de preço', 'Programas de alto valor dentro de uma categoria nova'],
+  ];
+  const accordion = document.getElementById('compareAccordion');
+  if (!accordion) return;
+  rows.forEach(([label, versus, lyvos], i) => {
+    const row = document.createElement('div');
+    row.className = 'accordion__row' + (i === 0 ? ' open' : '');
+    row.innerHTML = `
+      <button class="accordion__head" type="button">
+        <span>${label}</span>
+        <span class="plus">+</span>
+      </button>
+      <div class="accordion__body">
+        <div class="accordion__col versus">
+          <div class="accordion__label">Sistemas de dieta</div>
+          <p>${versus}</p>
+        </div>
+        <div class="accordion__col lyvos">
+          <div class="accordion__label">LYVOS · Ecossistema + Comunidade</div>
+          <p>${lyvos}</p>
+        </div>
+      </div>
+    `;
+    accordion.appendChild(row);
+  });
+  accordion.addEventListener('click', (e) => {
+    const head = e.target.closest('.accordion__head');
+    if (!head) return;
+    head.parentElement.classList.toggle('open');
+  });
+})();
+
+/* =====================================================================
+   CUSTOM CURSOR · desktop only (active on dark sections)
+   ===================================================================== */
+(function () {
+  if (!window.matchMedia('(min-width: 1024px) and (hover: hover)').matches) return;
+  const cursor = document.getElementById('lyvosCursor');
+  if (!cursor) return;
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    const onSand = e.target.closest('.section--sand');
+    cursor.classList.toggle('show', !onSand);
+  });
+  document.addEventListener('mouseover', (e) => {
+    const interactive = e.target.closest('a, button, input, .accordion__head');
+    cursor.classList.toggle('hover', !!interactive);
+  });
+  document.addEventListener('mouseleave', () => cursor.classList.remove('show'));
+})();
+</script>
+</body>
+</html>
