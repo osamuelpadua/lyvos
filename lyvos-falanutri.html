@@ -104,10 +104,11 @@ h1, h2, h3, .display {
   letter-spacing: -0.012em;
   color: var(--sand-lightest);
 }
-.italic { font-style: italic; font-weight: 400; color: var(--sand-light); }
+.italic { font-style: italic; font-weight: 400; color: var(--terracota); }
 .section--sand h1, .section--sand h2, .section--sand h3 { color: var(--brown-deep); }
 
-h1 { font-size: clamp(2.4rem, 5.6vw, 4.6rem); }
+h1 { font-size: clamp(2.4rem, 5.6vw, 3.44rem); }
+@media (min-width: 1024px) { h1 { font-size: 55px; } }
 h2 { font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.08; }
 
 p { font-size: 1.0625rem; color: var(--sand-light); }
@@ -135,15 +136,40 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
    HEADER
    ===================================================================== */
 .header {
-  position: fixed;
-  top: 7px;
-  left: var(--pad-x);
-  right: var(--pad-x);
+  position: relative;
+  z-index: 10;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  padding: 48px 0 clamp(24px, 3vw, 40px);
+}
+.header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 50;
-  padding-top: clamp(20px, 2.8vw, 36px);
+  width: 100%;
+}
+
+.header__stamp {
+  position: relative;
+  width: 124px;
+  height: 124px;
+  flex-shrink: 0;
+  margin-right: -20px;
+}
+.header__stamp .stamp-txt {
+  position: absolute;
+  inset: 0;
+  width: 124px;
+  height: 124px;
+}
+.header__stamp .stamp-iso {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
 }
 .brandmark {
   display: inline-flex;
@@ -204,11 +230,15 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
    HERO
    ===================================================================== */
 .hero {
-  padding-top: clamp(150px, 16vw, 200px);
+  padding-top: 0;
   padding-bottom: 0;
   position: relative;
   overflow: hidden;
   background: var(--ink);
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .hero__bg {
   position: absolute;
@@ -231,19 +261,7 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 }
 
 /* stamp */
-.stamp-wrapper {
-  position: absolute;
-  top: -36px;
-  right: -85px;
-  width: 162px;
-  height: 162px;
-  z-index: 3;
-}
 .stamp-txt {
-  position: absolute;
-  inset: 0;
-  width: 162px;
-  height: 162px;
   animation: spin-stamp 18s linear infinite;
   transform-origin: center center;
 }
@@ -252,8 +270,6 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 72px;
-  height: 72px;
 }
 @keyframes spin-stamp {
   from { transform: rotate(0deg); }
@@ -279,7 +295,7 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 
 .hero__lead {
   color: var(--sand-light);
-  max-width: 52ch;
+  max-width: 64ch;
   font-size: 0.94rem;
   line-height: 1.75;
   margin-bottom: 36px;
@@ -351,7 +367,7 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 .form-card {
   background: rgba(42, 28, 23, 0.55);
   border: 1px solid var(--border-strong);
-  padding: clamp(32px, 3vw, 44px);
+  padding: clamp(56px, 6vw, 80px) clamp(32px, 3vw, 44px);
   border-radius: 6px;
   position: relative;
   backdrop-filter: blur(2px);
@@ -369,7 +385,7 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 .form-row {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 34px;
   margin-bottom: 32px;
 }
 .field { position: relative; }
@@ -447,8 +463,13 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 }
 
 /* =====================================================================
-   BLOCO 2 · A DOR (dark)
+   BLOCO 2 · A DOR (sand)
    ===================================================================== */
+.pain { background: #DCCBB7 !important; }
+.pain .eyebrow { color: var(--brown-deep); }
+.pain h2 { max-width: 22ch; margin-bottom: 36px; color: var(--brown-deep); }
+.pain h2 .italic { color: var(--terracota); font-style: italic; }
+
 .pain__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -456,51 +477,64 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 }
 @media (min-width: 1024px) { .pain__grid { grid-template-columns: 1fr 1fr; align-items: start; } }
 
-.pain h2 { max-width: 22ch; margin-bottom: 36px; }
-.pain h2 .italic { display: block; }
-.pain__intro { max-width: 52ch; margin-bottom: 26px; color: var(--sand-light); }
+.pain__intro { max-width: 64ch; margin-bottom: 26px; color: var(--brown-deep); opacity: 0.85; font-weight: 400; }
+.pain__sub {
+  padding-left: 18px;
+  border-left: 2px solid var(--terracota);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--brown-deep);
+  line-height: 1.5;
+  margin-top: 32px;
+}
 
 .pain__list-title {
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--sand-mid);
-  margin-bottom: 30px;
+  color: var(--terracota);
+  margin-bottom: 20px;
 }
 .pain__list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin-bottom: 44px;
+  gap: 12px;
+  margin-bottom: 32px;
 }
 .pain__list li {
-  display: grid;
-  grid-template-columns: 32px 1fr;
-  gap: 16px;
-  font-size: 1.0625rem;
-  color: var(--sand-light);
-  line-height: 1.65;
-  padding-bottom: 22px;
-  border-bottom: 1px solid var(--border);
-}
-.pain__list li:last-child { border-bottom: 0; }
-.pain__list li::before {
-  content: "—";
-  color: var(--terracota);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 1rem;
   font-weight: 400;
-  font-size: 1.1rem;
-  line-height: 1.65;
+  color: var(--brown-deep);
+  line-height: 1.6;
+  background: #EFDFCD;
+  border: 1px solid rgba(96, 58, 50, 0.15);
+  border-left: 3px solid rgba(96, 58, 50, 0.2);
+  border-radius: 4px;
+  padding: 16px 20px;
+}
+.pain__list li::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+  background: var(--terracota);
+  margin-top: 7px;
 }
 .pain__close {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
-  color: var(--sand-lightest);
-  line-height: 1.3;
-  max-width: 24ch;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--terracota);
+  margin-top: 8px;
 }
 
 /* =====================================================================
@@ -595,9 +629,9 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
    BLOCO 3 · ECOSSISTEMA + COMUNIDADE (deeper dark)
    ===================================================================== */
 .eco { position: relative; overflow: hidden; }
-.eco h2 { max-width: 22ch; margin-bottom: 32px; }
-.eco h2 .italic { display: block; }
-.eco__intro { max-width: 56ch; margin-bottom: 64px; }
+.eco h2 { max-width: 28ch; margin: 0 auto 32px; text-align: center; }
+.eco h2 .italic { display: inline; color: var(--terracota); }
+.eco__intro { max-width: 72ch; margin: 0 auto 64px; text-align: center; }
 
 .eco__deliverables-title {
   font-family: var(--font-body);
@@ -606,6 +640,7 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
   text-transform: uppercase;
   color: var(--sand-mid);
   margin-bottom: 40px;
+  text-align: center;
 }
 .eco__list {
   list-style: none;
@@ -615,7 +650,7 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
   margin-bottom: clamp(72px, 8vw, 100px);
   border-top: 1px solid var(--border);
 }
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .eco__list {
     grid-template-columns: 1fr 1fr;
     border-left: 1px solid var(--border);
@@ -627,15 +662,15 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
   border-bottom: 1px solid var(--border);
   position: relative;
 }
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .eco__list li { padding: 36px 36px; border-right: 1px solid var(--border); }
 }
 .eco__list li::before {
   content: "—";
-  display: inline-block;
+  display: block;
   color: var(--terracota);
   font-size: 1.2rem;
-  margin-right: 12px;
+  margin-bottom: 16px;
 }
 .eco__list .item-name {
   font-family: var(--font-display);
@@ -643,7 +678,7 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
   font-size: 1.4rem;
   color: var(--sand-lightest);
   margin-bottom: 14px;
-  display: inline;
+  display: block;
 }
 .eco__list .item-desc {
   display: block;
@@ -657,25 +692,25 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 
 .eco__manifesto {
   text-align: center;
-  max-width: 980px;
-  margin: 0 auto clamp(60px, 8vw, 100px);
-  padding: clamp(48px, 6vw, 80px) 0;
+  max-width: 1320px;
+  margin: 0 auto 0;
+  padding: clamp(32px, 4vw, 48px) 0 clamp(16px, 2vw, 24px);
   position: relative;
 }
 .eco__manifesto .hairline {
-  margin: 0 auto 36px;
+  margin: 0 auto 48px;
   background: var(--border-strong);
 }
-.eco__manifesto .hairline + .hairline { margin: 36px auto 0; }
+.eco__manifesto .hairline + .hairline { margin: 64px auto 0; }
 .eco__manifesto p {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
-  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-size: clamp(1.2rem, 1.9vw, 1.8rem);
   line-height: 1.32;
   color: var(--sand-lightest);
 }
-.eco__manifesto p .accent { color: var(--terracota); font-style: normal; font-weight: 500; }
+.eco__manifesto p .accent { color: var(--terracota); font-style: italic; font-weight: 400; }
 
 .eco__iso {
   position: absolute;
@@ -691,7 +726,9 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 /* =====================================================================
    BLOCO 4 · CONTRASTE (dark table)
    ===================================================================== */
-.contrast h2 { max-width: 24ch; margin-bottom: 48px; }
+.contrast h2 { max-width: 32ch; margin-bottom: 0; text-align: center; margin-left: auto; margin-right: auto; }
+.contrast .eyebrow { display: block; text-align: center; }
+.contrast .lead { text-align: center; margin-left: auto; margin-right: auto; }
 
 .compare {
   width: 100%;
@@ -751,9 +788,18 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 
 /* mobile accordion */
 .accordion { display: none; }
+.compare-mobile { display: none; }
 @media (max-width: 768px) {
   .compare-wrap { display: none; }
-  .accordion { display: block; border-top: 1px solid var(--border); }
+  .compare-mobile { display: flex; flex-direction: column; gap: 16px; }
+  .compare-mobile__card { border: 1px solid var(--border-strong); border-radius: 4px; padding: 20px; }
+  .compare-mobile__topic { font-family: var(--font-display); font-weight: 500; font-size: 1rem; color: var(--sand-lightest); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .compare-mobile__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .compare-mobile__col-label { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand-mid); margin-bottom: 6px; }
+  .compare-mobile__col-label.lyvos { color: var(--terracota); }
+  .compare-mobile__col p { font-size: 0.95rem; line-height: 1.5; color: var(--sand-light); }
+  .compare-mobile__col.versus p { font-family: var(--font-display); font-style: italic; color: var(--sand-mid); }
+  .compare-mobile__col.lyvos { border-left: 2px solid var(--terracota); padding-left: 12px; }
   .accordion__row { border-bottom: 1px solid var(--border); }
   .accordion__head {
     width: 100%;
@@ -801,20 +847,19 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 /* =====================================================================
    BLOCO 5 · URGÊNCIA E ESCASSEZ
    ===================================================================== */
+.sc5 { text-align: center; position: relative; overflow: hidden; }
+.sc5__tag { display: block; text-align: center; margin-bottom: 24px; }
+.sc5__h2 { max-width: 26ch; margin: 0 auto 36px; text-align: center; }
+.sc5__h2 .italic { display: inline; }
+.sc5__hr { margin: 0 auto 48px; }
+.sc5__body { max-width: 68ch; margin: 0 auto 48px; text-align: center; }
+.sc5__body p { margin-bottom: 24px; line-height: 1.78; color: var(--sand-light); }
+.sc5__cond { max-width: 920px; margin: 0 auto; padding: 40px 0; border-top: 1px solid var(--border-strong); }
+.sc5__cond-label { display: block; font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--terracota); margin-bottom: 24px; }
+.sc5__pills { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.sc5__pills span { font-family: var(--font-body); font-size: 0.9rem; color: var(--sand-light); background: rgba(184,168,146,0.08); border: 1px solid var(--border-strong); border-radius: 100px; padding: 10px 22px; }
+
 .scarcity { position: relative; overflow: hidden; }
-.scarcity__top {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(48px, 6vw, 96px);
-  align-items: center;
-  margin-bottom: clamp(80px, 9vw, 140px);
-}
-@media (min-width: 1024px) { .scarcity__top { grid-template-columns: 0.85fr 1.15fr; } }
-
-.scarcity h2 { max-width: 18ch; margin-bottom: 36px; }
-.scarcity h2 .italic { display: block; }
-.scarcity__body p { max-width: 52ch; margin-bottom: 22px; line-height: 1.78; }
-
 .scarcity__num-wrap {
   text-align: center;
   position: relative;
@@ -859,42 +904,61 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
   margin-right: auto;
 }
 
+.scarcity { text-align: center; }
+.scarcity__eyebrow { display: block; text-align: center; margin-bottom: 28px; }
+.scarcity__h2 { max-width: 28ch; margin: 0 auto 32px; text-align: center; }
+.scarcity__h2 .italic { display: inline; }
+.scarcity__hr { margin: 0 auto 48px; }
+.scarcity__text { max-width: 72ch; margin: 0 auto 48px; text-align: center; }
+.scarcity__text p { margin-bottom: 28px; line-height: 1.78; text-align: center; font-size: 1rem; color: var(--sand-light); }
+
 .scarcity__conditions {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
-  line-height: 1.7;
-  color: var(--sand-light);
   max-width: 920px;
-  margin: 0 auto clamp(80px, 9vw, 120px);
+  margin: 0 auto clamp(60px, 7vw, 100px);
   text-align: center;
   padding: 40px 0;
   border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
 }
-.scarcity__conditions .sep { color: var(--terracota); margin: 0 0.6em; font-style: normal; }
 .scarcity__conditions .label {
   display: block;
   font-family: var(--font-body);
-  font-style: normal;
   font-size: 0.7rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--terracota);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+}
+.scarcity__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.scarcity__pills span {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--sand-light);
+  background: rgba(184, 168, 146, 0.08);
+  border: 1px solid var(--border-strong);
+  border-radius: 100px;
+  padding: 10px 22px;
+  white-space: nowrap;
 }
 
 /* =====================================================================
    BLOCO 6 · CAPTURA DEFINITIVA (deep dark · final commit)
    ===================================================================== */
-.final { position: relative; overflow: hidden; }
-.final__inner { max-width: 720px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
+.final { position: relative; overflow: hidden; padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 80px); }
+.final__inner { position: relative; z-index: 2; }
+.final__grid { display: grid; grid-template-columns: 1fr; gap: clamp(56px, 6vw, 96px); align-items: center; padding-bottom: clamp(72px, 9vw, 120px); }
+@media (min-width: 1024px) { .final__grid { grid-template-columns: 1.05fr 1fr; } }
+.final__copy { text-align: left; }
+.final h2 { max-width: 22ch; margin: 0 0 32px; text-align: left; }
 .final h2 { max-width: 22ch; margin: 0 auto 32px; }
 .final h2 .italic { display: block; }
-.final__lead { max-width: 56ch; margin: 0 auto 24px; }
+.final__lead { max-width: 52ch; margin: 0 0 24px; }
 .final__lead.last { margin-bottom: 56px; }
-.final .form-card { text-align: left; margin-top: 24px; }
+.final .form-card { text-align: left; margin-top: 24px; max-width: 820px; margin-left: auto; margin-right: auto; }
 
 .final__iso {
   position: absolute;
@@ -1012,13 +1076,41 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
   .lyvos-cursor.hover { width: 36px; height: 36px; background: rgba(183,98,68,0.12); }
 }
 
-@media (max-width: 640px) {
-  .hero { padding-top: 120px; }
-  .header { top: 22px; }
-  .quote__photo { max-width: 100%; }
-  .scarcity__number { font-size: 7.5rem; }
+@media (max-width: 768px) {
+  /* Header */
+  .header__nav { display: none; }
+  .header__stamp { width: 80px; height: 80px; }
+  .header__stamp .stamp-txt { width: 80px; height: 80px; }
+  .header__stamp .stamp-iso { width: 44px; height: 44px; }
+
+  /* Hero */
+  .hero { min-height: auto; }
+  .hero__inner { grid-template-columns: 1fr; }
+  .hero h1 { font-size: clamp(2rem, 7vw, 3rem); }
+
+  /* Pain */
+  .pain__grid { grid-template-columns: 1fr; }
+
+  /* Eco grid */
+  .eco__list { grid-template-columns: 1fr; border-left: none; }
+
+  /* Final */
+  .final__grid { grid-template-columns: 1fr; }
+  .final__copy { text-align: center; }
+  .final h2 { text-align: center; margin-left: auto; margin-right: auto; }
+  .final__lead { margin-left: auto; margin-right: auto; }
+  .final .form-card { max-width: 100%; }
+
+  /* Quote bloco */
   .footer__meta { flex-direction: column; gap: 12px; }
   .footer__meta .dot { display: none; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+  .header__stamp { display: none; }
+  .hero__form-wrap { width: 100%; }
+  .sc5__h2 { font-size: clamp(1.6rem, 6vw, 2rem); }
 }
 </style>
 </head>
@@ -1033,13 +1125,6 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 <!-- ===================================================================
      HEADER
      =================================================================== -->
-<header class="header" data-screen-label="Header">
-  <a href="#" class="brandmark" aria-label="LYVOS — Ecossistema Nutricional">
-    <img src="assets/logo.svg" alt="LYVOS Ecossistema Nutricional" style="height: 44px; width: auto;">
-  </a>
-  <nav class="header__nav">FalaNutri · 29.05 · Fortaleza/CE</nav>
-</header>
-
 <!-- ===================================================================
      BLOCO 1 · HERO
      =================================================================== -->
@@ -1047,45 +1132,47 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
   <!-- background foto -->
   <div class="hero__bg" aria-hidden="true"></div>
 
-  <div class="wrap hero__inner">
-    <div class="hero__copy hero-stagger">
-      <h1>
-        <span class="line">O mercado tem sistemas de dieta.</span>
-        <span class="line line--italic">A <span class="brandword">LYVOS</span> é <em>ecossistema</em>.</span>
-        <span class="line line--italic"><em>É comunidade</em>.</span>
-      </h1>
-
-      <p class="hero__lead">Sistemas resolvem prescrição. Ecossistemas resolvem o negócio. Mas o que separa um ecossistema de uma ferramenta cara não é só a tecnologia — é quem está dentro dele. A <strong>LYVOS</strong> foi construída para nutricionistas que operam em outro nível. E esses nutricionistas, quando juntos, constroem algo que nenhum sistema isolado consegue entregar: <strong>referência coletiva, padrão de mercado, comunidade de prática</strong>.</p>
-
-      <p class="hero__sub">Você não entra numa plataforma.<br/>Você entra num movimento.</p>
-    </div>
-
-    <div class="hero__form-wrap" style="position: relative;">
-      <!-- stamp giratória -->
-      <div class="stamp-wrapper">
+  <header class="header" data-screen-label="Header">
+    <div class="wrap header__inner">
+      <a href="#" class="brandmark" aria-label="LYVOS — Ecossistema Nutricional">
+        <img src="assets/logo.svg" alt="LYVOS Ecossistema Nutricional" style="height: 52px; width: auto;">
+      </a>
+      <nav class="header__nav">Exclusivo para participantes do <strong>FalaNutri · 29 de Maio</strong></nav>
+      <div class="header__stamp">
         <img src="assets/stamp-txt.svg" class="stamp-txt" alt="">
         <img src="assets/stamp-iso.svg" class="stamp-iso" alt="">
       </div>
+    </div>
+  </header>
+
+  <div class="wrap hero__inner">
+    <div class="hero__copy hero-stagger">
+      <h1>
+        <span class="line">Você passou no estande.</span>
+        <span class="line">Viu o ecossistema funcionando.</span>
+        <span class="line" style="font-style: italic; color: #B76244;">Sabe o que muda.</span>
+      </h1>
+
+      <p class="hero__lead">O que você viu hoje opera num registro que o mercado nutricional brasileiro não tinha tido antes. Anamnese conversando com prescrição. Prescrição conversando com exame. Exame entrando por leitura de quartil, não só por valor de referência do laboratório. Gestão e financeiro no mesmo painel. IA com governança técnica, não como gadget colado na interface. Cada peça pensada para conversar com a próxima, dentro de um único ambiente operado em comunidade.</p>
+
+      <p class="hero__sub">A pergunta agora é prática. Quem quer compor o núcleo que vai operar essa categoria antes do mercado? Os primeiros 45 nutricionistas que entram pelo FalaNutri compõem o <strong style="font-style: normal; color: var(--sand-lightest);">Núcleo de Fundadores da LYVOS</strong>.</p>
+    </div>
+
+    <div class="hero__form-wrap">
       <form class="form-card" data-form id="formHero" novalidate>
-        <span class="form-card__label">Grupo VIP de Fundadores · 45 vagas</span>
+        <span class="form-card__label">Núcleo de Fundadores · 45 vagas</span>
         <div class="form-row">
           <div class="field"><input type="text" name="nome" placeholder="Nome completo" required /></div>
           <div class="field"><input type="tel" name="whatsapp" placeholder="WhatsApp" required /></div>
           <div class="field"><input type="text" name="instagram" placeholder="Instagram (@usuario)" required /></div>
           <div class="field"><input type="email" name="email" placeholder="E-mail" required /></div>
         </div>
-        <button type="submit" class="cta">→ Quero entrar no grupo VIP de fundadores</button>
+        <button type="submit" class="cta">→ Quero entrar no Núcleo de Fundadores</button>
         <div class="form-success" data-success>✓ Você está na lista. Até o dia 29.</div>
       </form>
     </div>
   </div>
 
-  <!-- urgency marquee -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee__track" id="marqueeTrack">
-      <!-- items injected by JS for seamless loop -->
-    </div>
-  </div>
 </section>
 
 <!-- ===================================================================
@@ -1095,109 +1182,62 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
   <div class="wrap">
     <div class="pain__grid">
       <div>
-        <span class="eyebrow reveal"><span class="dot"></span>O DIAGNÓSTICO</span>
-        <h2 class="reveal" style="margin-top: 28px;">O problema não é só a ferramenta. <span class="italic">É o isolamento que ela não resolve.</span></h2>
-        <hr class="hairline reveal" style="margin: 32px 0;" />
-        <p class="lead pain__intro reveal">O nutricionista brasileiro trabalha sozinho. Agenda sozinho, prescreve sozinho, analisa exame sozinho, tenta crescer sozinho. O mercado de software reforçou esse isolamento: criou ferramentas individuais, vendidas por assinatura individual, com suporte individual. Cada nutricionista resolvendo os mesmos problemas de novo, do zero, sem se conectar com quem já resolveu.</p>
-        <p class="lead pain__intro reveal">Fragmentação de sistema e fragmentação de comunidade são o mesmo problema com duas faces.</p>
+        <span class="eyebrow reveal">O DIAGNÓSTICO</span>
+        <h2 class="reveal" style="margin-top: 20px;">A fragmentação não é só de software. <span class="italic">É de prática.</span></h2>
+        <p class="pain__intro reveal">Você sabe disso melhor que ninguém. Cinco a oito ferramentas abertas para fechar o ciclo de um único paciente. Cada profissional refazendo, sozinho, o caminho que outros já refizeram dezenas de vezes. Isso é o que se vê.</p>
+        <p class="pain__intro reveal">O que não se vê é que a fragmentação opera em duas camadas. Uma é operacional: módulos que não conversam, dados que precisam ser exportados, retrabalho diário. A outra é de prática: cada nutricionista resolvendo a mesma pergunta que outros estão resolvendo no mesmo momento, na mesma cidade, sem se cruzarem. Em mercado em formação, operar em silêncio é desperdício de tempo, de repertório clínico e de oportunidade.</p>
       </div>
 
       <div>
         <p class="pain__list-title reveal">O que o nutricionista típico enfrenta sozinho toda semana</p>
         <ul class="pain__list">
-          <li class="reveal">Como precificar o programa sem parecer caro demais — ou barato demais.</li>
-          <li class="reveal">Como conduzir a anamnese do paciente difícil que chega armado de informação de internet.</li>
-          <li class="reveal">Como crescer o consultório sem trabalhar mais horas.</li>
-          <li class="reveal">Como usar IA sem virar dependente de ferramenta que não entende de clínica.</li>
-          <li class="reveal">Como se posicionar num mercado que cresce em número mas não em profundidade.</li>
+          <li class="reveal">Conduzir a anamnese de um paciente que chega armado de informação solta da internet, sem perder a autoridade clínica.</li>
+          <li class="reveal">Ler exame por valor de referência do laboratório, sem o quartil que mostra onde está o risco real.</li>
+          <li class="reveal">Crescer o consultório sem virar refém das próprias horas.</li>
+          <li class="reveal">Usar IA na rotina sem terceirizar decisão clínica para uma caixa-preta de provedor único.</li>
+          <li class="reveal">Sair da agenda cheia para a agenda lucrativa, sem trocar o paciente certo pelo paciente qualquer.</li>
         </ul>
-        <p class="pain__close reveal">A maioria resolve no escuro. Ou não resolve.</p>
+        <p class="pain__close reveal">A maioria resolve no escuro. A maior parte não resolve.</p>
       </div>
     </div>
 
-    <!-- founder quote · Daniel (photo left) -->
-    <div class="quote reveal">
-      <div class="quote__photo" aria-label="Foto Daniel Coimbra · 300x300px mínimo">
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="32" cy="24" r="11"/>
-          <path d="M10 56c2-12 12-18 22-18s20 6 22 18"/>
-        </svg>
-        <span>300 × 300 px mínimo</span>
-      </div>
-      <div class="quote__body">
-        <span class="quote__mark">“</span>
-        <p class="quote__text">A gente não quer ser mais um. A gente quer de fato redefinir o jogo de como o nutricionista utiliza o ecossistema — e como ele se relaciona com outros nutricionistas dentro dele.</p>
-        <p class="quote__attr">
-          <strong>Daniel Coimbra</strong> · Cofundador · LYVOS
-          <span class="role">Nutricionista e mentor com mais de uma década de atuação</span>
-        </p>
-      </div>
-    </div>
   </div>
 </section>
+
 
 <!-- ===================================================================
      BLOCO 3 · ECOSSISTEMA + COMUNIDADE
      =================================================================== -->
 <section class="section section--mid eco" data-screen-label="03 Ecossistema">
-  <svg class="eco__iso isotipo" viewBox="0 0 600 600" aria-hidden="true">
-    <g fill="none" stroke="#ede4d7" stroke-width="1">
-      <circle cx="300" cy="300" r="80"/>
-      <circle cx="300" cy="300" r="140"/>
-      <circle cx="300" cy="300" r="210"/>
-      <circle cx="300" cy="300" r="280"/>
-    </g>
-  </svg>
-
   <div class="wrap">
-    <span class="eyebrow reveal"><span class="dot"></span>O ECOSSISTEMA + COMUNIDADE</span>
-    <h2 class="reveal" style="margin-top: 28px;">Tecnologia que conecta. <span class="italic">Comunidade que eleva.</span></h2>
-    <hr class="hairline reveal" style="margin: 32px 0;" />
-    <p class="lead eco__intro reveal">A <strong style="color: var(--sand-lightest); font-weight: 700;">LYVOS</strong> é o único ecossistema nutricional que trata tecnologia e comunidade como a mesma coisa. Não como features separadas. Como lógica integrada — porque um nutricionista melhor com ferramenta melhor, dentro de uma comunidade que pratica no mesmo nível, cresce diferente de tudo que existe hoje.</p>
+    <span class="eyebrow reveal" style="display: block; text-align: center; margin-bottom: 28px;">O ECOSSISTEMA + COMUNIDADE</span>
+    <h2 class="reveal" style="text-align: center;">Sua rotina inteira em um só ambiente. <span class="italic">Operada lado a lado com quem chega no mesmo nível.</span></h2>
+    <hr class="hairline reveal" style="margin: 32px auto;" />
+    <p class="lead eco__intro reveal">A <strong style="color: var(--sand-lightest); font-weight: 700;">LYVOS</strong> é o primeiro ambiente onde a sua rotina clínica e o seu grupo de prática moram no mesmo lugar. Anamnese, exame, prescrição, gestão e financeiro integrados sob governança técnica. Em volta disso, o núcleo de profissionais que opera no mesmo padrão e troca método entre si.</p>
 
     <p class="eco__deliverables-title reveal">O que o ecossistema entrega</p>
     <ul class="eco__list">
       <li class="reveal">
         <span class="item-name">Clínica integrada</span>
-        <span class="item-desc">Prescrição, análise de exames por quartil preditivo, anamnese por IA em tempo real, avaliação corporal por visão computacional.</span>
+        <span class="item-desc">Anamnese conversa com a prescrição. Prescrição conversa com o exame. Exame entra por leitura de quartil, não só por valor de referência do laboratório. Avaliação corporal feita pelo celular do paciente, em tempo real, sem aparelho separado.</span>
       </li>
       <li class="reveal">
-        <span class="item-name">Gestão real</span>
-        <span class="item-desc">Dashboard com taxa de remarcação, conversão, ticket médio e financeiro com meta reversa — para parar de crescer no escuro.</span>
+        <span class="item-name">Gestão à mostra</span>
+        <span class="item-desc">Painel com taxa de remarcação, conversão, ticket médio e meta reversa. Para parar de crescer no escuro.</span>
       </li>
       <li class="reveal">
         <span class="item-name">IA com governança</span>
-        <span class="item-desc">Arquitetura multi-provider com Gemini e OpenAI em paralelo, parametrizável, com base de dados clínicos própria em construção.</span>
+        <span class="item-desc">Arquitetura multi-provider rodando Gemini e OpenAI em paralelo, parametrizável, com base clínica própria em construção. A IA sugere. Você decide. Cada prescrição passa pela sua escolha clínica antes de chegar ao paciente.</span>
       </li>
       <li class="reveal">
-        <span class="item-name">Comunidade de Fundadores</span>
-        <span class="item-desc">Os primeiros 45 nutricionistas que entram formam o núcleo da LYVOS — com acesso direto à equipe, feedback que molda o produto e padrão coletivo de operação.</span>
+        <span class="item-name">Núcleo de Fundadores</span>
+        <span class="item-desc">Os primeiros 45 nutricionistas que entram formam o grupo que molda o produto, define o padrão de uso e tem acesso direto à equipe técnica. Comunidade construída antes do mercado geral.</span>
       </li>
     </ul>
 
     <div class="eco__manifesto reveal">
       <hr class="hairline hairline--full" />
-      <p>Ecossistema sem comunidade é software. Comunidade sem ecossistema é grupo de WhatsApp. <span class="accent">A LYVOS é as duas coisas ao mesmo tempo.</span></p>
-      <hr class="hairline hairline--full" />
-    </div>
-
-    <!-- founder quote · Jakssuel (photo right) -->
-    <div class="quote quote--right reveal">
-      <div class="quote__body">
-        <span class="quote__mark">“</span>
-        <p class="quote__text">A gente entregaria algo que realmente ia entregar pro mercado o que não existia. Não era mais uma caderneta digital. Era uma outra forma de operar — e de se conectar com quem opera no mesmo nível.</p>
-        <p class="quote__attr">
-          <strong>Jakssuel Alves</strong> · Cofundador · LYVOS
-          <span class="role">Nutricionista e arquiteto operacional do ecossistema</span>
-        </p>
-      </div>
-      <div class="quote__photo" aria-label="Foto Jakssuel Alves · 300x300px mínimo">
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="32" cy="24" r="11"/>
-          <path d="M10 56c2-12 12-18 22-18s20 6 22 18"/>
-        </svg>
-        <span>300 × 300 px mínimo</span>
-      </div>
+      <p>Ecossistema sem comunidade é mais um sistema. Comunidade sem ecossistema é grupo de WhatsApp. <span class="accent">A LYVOS opera nas duas camadas ao mesmo tempo, porque uma sustenta a outra.</span></p>
     </div>
   </div>
 </section>
@@ -1207,9 +1247,10 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
      =================================================================== -->
 <section class="section section--deeper contrast" data-screen-label="04 Contraste">
   <div class="wrap">
-    <span class="eyebrow reveal"><span class="dot"></span>O CONTRASTE</span>
-    <h2 class="reveal" style="margin-top: 28px;">A diferença entre comprar uma ferramenta <span class="italic">e entrar num ecossistema.</span></h2>
-    <hr class="hairline reveal" style="margin: 32px 0 56px;" />
+    <span class="eyebrow reveal">O CONTRASTE</span>
+    <h2 class="reveal" style="margin-top: 28px;">A diferença entre adotar mais um sistema <span class="italic">e entrar em outra categoria.</span></h2>
+    <p class="lead reveal" style="max-width: 80ch; margin-top: 28px;">Comparar a LYVOS com sistemas de prescrição é comparar duas coisas que nem operam no mesmo nível. Vale visualizar lado a lado, para que a leitura fique sem dúvida.</p>
+    <hr class="hairline reveal" style="margin: 40px 0 56px;" />
 
     <!-- desktop table -->
     <div class="compare-wrap reveal">
@@ -1217,96 +1258,112 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
         <thead>
           <tr>
             <th>O que comparam</th>
-            <th>Sistemas de dieta</th>
-            <th>LYVOS — Ecossistema + Comunidade</th>
+            <th>Sistemas de prescrição</th>
+            <th>LYVOS · Ecossistema + Comunidade</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Lógica do produto</td>
             <td>Ferramenta de prescrição isolada</td>
-            <td>Ecossistema clínico, operacional e comunitário</td>
+            <td>Ambiente integrado de prática clínica e gestão</td>
           </tr>
           <tr>
             <td>Análise de exames</td>
-            <td>Faixa de referência do laboratório</td>
-            <td>Quartil preditivo de otimização clínica</td>
+            <td>Valor de referência do laboratório</td>
+            <td>Leitura por quartil preditivo</td>
           </tr>
           <tr>
-            <td>IA no produto</td>
+            <td>IA dentro do produto</td>
             <td>Botão de ChatGPT colado na interface</td>
-            <td>Governança multi-provider com arquitetura nativa</td>
+            <td>Arquitetura multi-provider com governança</td>
           </tr>
           <tr>
-            <td>Comunidade</td>
-            <td>Inexistente — cada um resolve sozinho</td>
+            <td>Comunidade entre profissionais</td>
+            <td>Cada um resolve sozinho</td>
             <td>Núcleo de Fundadores com acesso direto à equipe</td>
           </tr>
           <tr>
-            <td>Crescimento coletivo</td>
-            <td>Não considerado</td>
-            <td>Padrão de prática elevado por quem opera junto</td>
+            <td>Posicionamento de mercado</td>
+            <td>Consulta avulsa, mercado de preço</td>
+            <td>Programas de alto valor, categoria própria</td>
           </tr>
           <tr>
-            <td>Posicionamento</td>
-            <td>Consulta avulsa num mercado de preço</td>
-            <td>Programas de alto valor dentro de uma categoria nova</td>
+            <td>Crescimento da prática</td>
+            <td>Acontece (ou não) por esforço individual</td>
+            <td>Acontece por padrão coletivo elevado</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- mobile accordion -->
-    <div class="accordion reveal" id="compareAccordion"></div>
+    <!-- mobile cards -->
+    <div class="compare-mobile reveal">
+      <div class="compare-mobile__card">
+        <div class="compare-mobile__topic">Lógica do produto</div>
+        <div class="compare-mobile__row">
+          <div class="compare-mobile__col versus"><div class="compare-mobile__col-label">Sistemas de prescrição</div><p>Ferramenta de prescrição isolada</p></div>
+          <div class="compare-mobile__col lyvos"><div class="compare-mobile__col-label lyvos">LYVOS</div><p>Ambiente integrado de prática clínica e gestão</p></div>
+        </div>
+      </div>
+      <div class="compare-mobile__card">
+        <div class="compare-mobile__topic">Análise de exames</div>
+        <div class="compare-mobile__row">
+          <div class="compare-mobile__col versus"><div class="compare-mobile__col-label">Sistemas de prescrição</div><p>Valor de referência do laboratório</p></div>
+          <div class="compare-mobile__col lyvos"><div class="compare-mobile__col-label lyvos">LYVOS</div><p>Leitura por quartil preditivo</p></div>
+        </div>
+      </div>
+      <div class="compare-mobile__card">
+        <div class="compare-mobile__topic">IA dentro do produto</div>
+        <div class="compare-mobile__row">
+          <div class="compare-mobile__col versus"><div class="compare-mobile__col-label">Sistemas de prescrição</div><p>Botão de ChatGPT colado na interface</p></div>
+          <div class="compare-mobile__col lyvos"><div class="compare-mobile__col-label lyvos">LYVOS</div><p>Arquitetura multi-provider com governança</p></div>
+        </div>
+      </div>
+      <div class="compare-mobile__card">
+        <div class="compare-mobile__topic">Comunidade entre profissionais</div>
+        <div class="compare-mobile__row">
+          <div class="compare-mobile__col versus"><div class="compare-mobile__col-label">Sistemas de prescrição</div><p>Cada um resolve sozinho</p></div>
+          <div class="compare-mobile__col lyvos"><div class="compare-mobile__col-label lyvos">LYVOS</div><p>Núcleo de Fundadores com acesso direto à equipe</p></div>
+        </div>
+      </div>
+      <div class="compare-mobile__card">
+        <div class="compare-mobile__topic">Posicionamento de mercado</div>
+        <div class="compare-mobile__row">
+          <div class="compare-mobile__col versus"><div class="compare-mobile__col-label">Sistemas de prescrição</div><p>Consulta avulsa, mercado de preço</p></div>
+          <div class="compare-mobile__col lyvos"><div class="compare-mobile__col-label lyvos">LYVOS</div><p>Programas de alto valor, categoria própria</p></div>
+        </div>
+      </div>
+      <div class="compare-mobile__card">
+        <div class="compare-mobile__topic">Crescimento da prática</div>
+        <div class="compare-mobile__row">
+          <div class="compare-mobile__col versus"><div class="compare-mobile__col-label">Sistemas de prescrição</div><p>Acontece (ou não) por esforço individual</p></div>
+          <div class="compare-mobile__col lyvos"><div class="compare-mobile__col-label lyvos">LYVOS</div><p>Acontece por padrão coletivo elevado</p></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <!-- ===================================================================
      BLOCO 5 · URGÊNCIA E ESCASSEZ
      =================================================================== -->
-<section class="section section--deep scarcity" data-screen-label="05 Escassez">
+<section class="section section--deep" data-screen-label="05 Escassez">
   <div class="wrap">
-    <div class="scarcity__top">
-      <div class="scarcity__num-wrap reveal">
-        <div class="scarcity__num-label">Vagas · Núcleo Fundador</div>
-        <div class="scarcity__number">
-          <svg class="iso-ring isotipo" viewBox="0 0 100 100" aria-hidden="true">
-            <circle cx="50" cy="50" r="48" fill="none" stroke="#dccbb7" stroke-width="0.4"/>
-            <circle cx="50" cy="50" r="40" fill="none" stroke="#b76244" stroke-width="0.5"/>
-          </svg>
-          45
-        </div>
-        <p class="scarcity__num-after">Não é limite de sistema — é limite de comunidade.</p>
-      </div>
-      <div class="scarcity__body">
-        <span class="eyebrow reveal"><span class="dot"></span>URGÊNCIA E ESCASSEZ</span>
-        <h2 class="reveal" style="margin-top: 28px;">45 vagas. <span class="italic">Não é limite de sistema — é limite de comunidade.</span></h2>
-        <hr class="hairline reveal" style="margin: 32px 0;" />
-        <p class="reveal">Comunidade tem tamanho. As primeiras 45 vagas do Grupo de Fundadores não são apenas sobre onboarding de plataforma — são sobre quem vai compor o núcleo da LYVOS. Quem define o padrão. Quem molda o produto. Quem entra com as condições que não voltam.</p>
-        <p class="reveal">Quando a LYVOS abrir para o mercado geral, o preço muda. A condição muda. O acesso à equipe muda. O que não muda é que os Fundadores já estão dentro — com vantagem de ferramenta, de posicionamento e de comunidade construída antes de todo mundo.</p>
-      </div>
+<h2 class="reveal" style="text-align:center;max-width:36ch;margin-left:auto;margin-right:auto;margin-bottom:36px;">45 vagas. <span class="italic">O limite é da comunidade, não do sistema.</span></h2>
+    <hr class="hairline reveal" style="margin-left:auto;margin-right:auto;margin-bottom:48px;" />
+    <div class="reveal" style="max-width:130ch;margin-left:auto;margin-right:auto;margin-bottom:48px;text-align:center;">
+      <p style="margin-bottom:24px;line-height:1.78;color:#dccbb7;">Comunidade tem tamanho. Núcleo de prática não escala por clique. Escala por encontro, por escuta, por tempo dedicado a cada profissional que entra. As primeiras 45 vagas do FalaNutri abrem para os nutricionistas que vão compor o núcleo fundador da LYVOS: quem define o padrão de uso, quem dá o feedback que molda o produto, e quem entra com a condição comercial que não volta.</p>
+      <p style="line-height:1.78;color:#dccbb7;">Quando a LYVOS abrir para o mercado geral, o preço muda. O acesso à equipe muda. A janela de degustação muda. O que não muda é que os Fundadores já estarão dentro, com vantagem de ambiente, de posicionamento e de prática construídos antes do mercado começar a se mover.</p>
     </div>
-
-    <p class="scarcity__conditions reveal">
-      <span class="label">Condição de Fundador inclui</span>
-      acesso prioritário à migração completa <span class="sep">·</span> condições comerciais travadas <span class="sep">·</span> onboarding white-glove com a equipe técnica <span class="sep">·</span> entrada no núcleo fundador da comunidade LYVOS
-    </p>
-
-    <!-- founder quote · Jakssuel (photo right) -->
-    <div class="quote quote--right reveal">
-      <div class="quote__body">
-        <span class="quote__mark">“</span>
-        <p class="quote__text">Fazer o cara ficar bom, ser bom, ter uma entrega diferenciada. É isso que a LYVOS faz. E quando esses caras estão juntos, o nível do mercado sobe junto.</p>
-        <p class="quote__attr">
-          <strong>Jakssuel Alves</strong> · Cofundador · LYVOS
-        </p>
-      </div>
-      <div class="quote__photo" aria-label="Foto Jakssuel Alves · 300x300px mínimo">
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="32" cy="24" r="11"/>
-          <path d="M10 56c2-12 12-18 22-18s20 6 22 18"/>
-        </svg>
-        <span>300 × 300 px mínimo</span>
+    <div class="reveal" style="max-width:920px;margin-left:auto;margin-right:auto;padding-top:40px;border-top:1px solid rgba(184,168,146,0.22);text-align:center;">
+      <span style="display:block;font-size:0.7rem;letter-spacing:0.26em;text-transform:uppercase;color:#b76244;margin-bottom:24px;">CONDIÇÃO DE FUNDADOR INCLUI</span>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+        <span style="font-size:0.9rem;color:#dccbb7;background:rgba(184,168,146,0.08);border:1px solid rgba(184,168,146,0.22);border-radius:100px;padding:10px 22px;">Migração assistida pela equipe técnica</span>
+        <span style="font-size:0.9rem;color:#dccbb7;background:rgba(184,168,146,0.08);border:1px solid rgba(184,168,146,0.22);border-radius:100px;padding:10px 22px;">Condições comerciais travadas no primeiro ciclo</span>
+        <span style="font-size:0.9rem;color:#dccbb7;background:rgba(184,168,146,0.08);border:1px solid rgba(184,168,146,0.22);border-radius:100px;padding:10px 22px;">Onboarding white-glove</span>
+        <span style="font-size:0.9rem;color:#dccbb7;background:rgba(184,168,146,0.08);border:1px solid rgba(184,168,146,0.22);border-radius:100px;padding:10px 22px;">Entrada no núcleo fundador da comunidade LYVOS</span>
       </div>
     </div>
   </div>
@@ -1325,44 +1382,42 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
     </g>
   </svg>
 
-  <div class="final__inner">
-    <span class="eyebrow reveal"><span class="dot"></span>O MOMENTO DE DECIDIR</span>
-    <h2 class="reveal" style="margin-top: 28px;">Você não está comprando uma assinatura. <span class="italic">Está escolhendo um lado.</span></h2>
-    <hr class="hairline reveal" style="margin: 32px auto;" />
-    <p class="lead final__lead reveal">O mercado de nutrição vai se dividir. De um lado, os nutricionistas que continuam resolvendo os mesmos problemas com as mesmas ferramentas fragmentadas, sozinhos. Do outro, os que entraram num ecossistema real — com tecnologia, com método e com uma comunidade que opera no mesmo nível.</p>
-    <p class="lead final__lead last reveal">O FalaNutri, dia 29, é onde essa divisão começa. Preencha abaixo para garantir sua vaga no Grupo VIP de Fundadores.</p>
+  <div class="wrap final__inner">
+  <div class="final__grid">
+    <div class="final__copy hero-stagger">
+      <span class="eyebrow reveal">O MOMENTO DE DECIDIR</span>
+      <h2 class="reveal" style="margin-top: 28px;">O FalaNutri é <span class="italic">onde a decisão começa.</span></h2>
+      <hr class="hairline reveal" style="margin: 32px 0;" />
+      <p class="lead final__lead reveal">O mercado nutricional brasileiro vai se reorganizar nos próximos anos. Quem continua somando ferramentas isoladas vai operar como sempre operou. Quem entra num ambiente integrado, ao lado de outros profissionais com o mesmo padrão de prática, vai operar em outra escala. A escolha começa aqui.</p>
+      <p class="lead final__lead last reveal">O FalaNutri é onde essa escolha começa. Preencha abaixo para garantir sua vaga no Núcleo de Fundadores da LYVOS.</p>
+    </div>
 
-    <form class="form-card reveal" data-form id="formFinal" novalidate>
-      <span class="form-card__label">Núcleo de Fundadores · 45 vagas</span>
-      <div class="form-row">
-        <div class="field"><input type="text" name="nome" placeholder="Nome completo" required /></div>
-        <div class="field"><input type="tel" name="whatsapp" placeholder="WhatsApp" required /></div>
-        <div class="field"><input type="text" name="instagram" placeholder="Instagram (@usuario)" required /></div>
-        <div class="field"><input type="email" name="email" placeholder="E-mail" required /></div>
-      </div>
-      <button type="submit" class="cta">→ Quero entrar no núcleo de fundadores</button>
-      <div class="form-success" data-success>✓ Você está na lista. Até o dia 29.</div>
-      <p class="form-footnote">Apenas participantes do FalaNutri · 29 de maio · 45 vagas · Fortaleza, CE</p>
-    </form>
+    <div class="hero__form-wrap">
+      <form class="form-card reveal" data-form id="formFinal" novalidate>
+        <span class="form-card__label">Núcleo de Fundadores · 45 vagas</span>
+        <div class="form-row">
+          <div class="field"><input type="text" name="nome" placeholder="Nome completo" required /></div>
+          <div class="field"><input type="tel" name="whatsapp" placeholder="WhatsApp" required /></div>
+          <div class="field"><input type="text" name="instagram" placeholder="Instagram (@usuario)" required /></div>
+          <div class="field"><input type="email" name="email" placeholder="E-mail" required /></div>
+        </div>
+        <button type="submit" class="cta">→ Quero entrar no núcleo de fundadores</button>
+        <div class="form-success" data-success>✓ Você está na lista. Até o dia 29.</div>
+        <p class="form-footnote">Apenas participantes do FalaNutri · 29 de maio · 45 vagas · Fortaleza, CE</p>
+      </form>
+    </div>
   </div>
+  </div>
+</section>
 
-  <!-- founder quote · Daniel (photo left) -->
+<!-- ===================================================================
+     BLOCO QUOTE
+     =================================================================== -->
+<section class="section" style="background:#DCCBB7;text-align:center;padding-top:clamp(36px,4vw,56px);padding-bottom:clamp(64px,7vw,96px);">
   <div class="wrap">
-    <div class="quote reveal" style="margin-top: clamp(80px, 9vw, 140px);">
-      <div class="quote__photo" aria-label="Foto Daniel Coimbra · 300x300px mínimo">
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="32" cy="24" r="11"/>
-          <path d="M10 56c2-12 12-18 22-18s20 6 22 18"/>
-        </svg>
-        <span>300 × 300 px mínimo</span>
-      </div>
-      <div class="quote__body">
-        <span class="quote__mark">“</span>
-        <p class="quote__text">Tu não vai ser substituído pela IA. Tu vai usar a IA para ficar muito mais forte — e vais crescer junto com outros nutricionistas que entenderam isso antes do mercado.</p>
-        <p class="quote__attr">
-          <strong>Daniel Coimbra</strong> · Cofundador · LYVOS
-        </p>
-      </div>
+    <div class="reveal" style="max-width:1100px;margin:0 auto;">
+      <img src="assets/aspas.svg" alt="" style="width:56px;height:auto;margin:0 auto 32px;display:block;">
+      <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.6rem,2.6vw,2.4rem);color:#603a32;line-height:1.45;font-weight:400;">Você não vai ser substituído pela IA. Você vai usar a IA para amplificar quem já é. E vai crescer ao lado de outros nutricionistas que entenderam isso antes do mercado.</p>
     </div>
   </div>
 </section>
@@ -1372,40 +1427,7 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
      =================================================================== -->
 <footer class="footer" data-screen-label="Footer">
   <div class="footer__brand">
-    <span class="brandmark__iso isotipo" aria-hidden="true">
-      <svg viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="40" fill="none" stroke="#dccbb7" stroke-width="0.9"/>
-        <circle cx="50" cy="50" r="28" fill="none" stroke="#b76244" stroke-width="0.7"/>
-        <circle cx="50" cy="50" r="4" fill="#b76244"/>
-        <g>
-          <use href="#ray-tick" transform="rotate(0 50 50)"/>
-          <use href="#ray-tick" transform="rotate(15 50 50)"/>
-          <use href="#ray-tick" transform="rotate(30 50 50)"/>
-          <use href="#ray-tick" transform="rotate(45 50 50)"/>
-          <use href="#ray-tick" transform="rotate(60 50 50)"/>
-          <use href="#ray-tick" transform="rotate(75 50 50)"/>
-          <use href="#ray-tick" transform="rotate(90 50 50)"/>
-          <use href="#ray-tick" transform="rotate(105 50 50)"/>
-          <use href="#ray-tick" transform="rotate(120 50 50)"/>
-          <use href="#ray-tick" transform="rotate(135 50 50)"/>
-          <use href="#ray-tick" transform="rotate(150 50 50)"/>
-          <use href="#ray-tick" transform="rotate(165 50 50)"/>
-          <use href="#ray-tick" transform="rotate(180 50 50)"/>
-          <use href="#ray-tick" transform="rotate(195 50 50)"/>
-          <use href="#ray-tick" transform="rotate(210 50 50)"/>
-          <use href="#ray-tick" transform="rotate(225 50 50)"/>
-          <use href="#ray-tick" transform="rotate(240 50 50)"/>
-          <use href="#ray-tick" transform="rotate(255 50 50)"/>
-          <use href="#ray-tick" transform="rotate(270 50 50)"/>
-          <use href="#ray-tick" transform="rotate(285 50 50)"/>
-          <use href="#ray-tick" transform="rotate(300 50 50)"/>
-          <use href="#ray-tick" transform="rotate(315 50 50)"/>
-          <use href="#ray-tick" transform="rotate(330 50 50)"/>
-          <use href="#ray-tick" transform="rotate(345 50 50)"/>
-        </g>
-      </svg>
-    </span>
-    <span class="footer__type">LYVOS</span>
+    <img src="assets/logo-footer.svg" alt="LYVOS Ecossistema Nutricional" style="height:110px;width:auto;">
   </div>
   <p class="footer__tag">Ecossistema Nutricional</p>
   <div class="footer__rule"></div>
@@ -1457,8 +1479,12 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
   els.forEach((el) => io.observe(el));
+  // fallback: force all reveals visible after 2s in case observer misses
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.in)').forEach((el) => el.classList.add('in'));
+  }, 2000);
 })();
 
 /* =====================================================================
