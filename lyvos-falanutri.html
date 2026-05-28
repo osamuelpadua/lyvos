@@ -59,16 +59,8 @@ img, svg { display: block; max-width: 100%; }
   background: var(--ink);
   position: relative;
 }
-/* hero gets a soft terracota warmth glowing from the right */
-.section--deep.hero::after {
-  content: "";
-  position: absolute;
-  top: -10%; right: -20%;
-  width: 70vw; height: 110%;
-  background: radial-gradient(ellipse at center, rgba(183, 98, 68, 0.18) 0%, rgba(183, 98, 68, 0.04) 35%, transparent 65%);
-  pointer-events: none;
-  z-index: 0;
-}
+/* hero bg image overrides the dark surface */
+.section--deep.hero::after { display: none; }
 .section--deeper { background: var(--ink-2); position: relative; }
 .section--mid {
   background: var(--ink);
@@ -143,14 +135,15 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
    HEADER
    ===================================================================== */
 .header {
-  position: absolute;
-  top: clamp(28px, 3.6vw, 44px);
+  position: fixed;
+  top: 7px;
   left: var(--pad-x);
   right: var(--pad-x);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 10;
+  z-index: 50;
+  padding-top: clamp(20px, 2.8vw, 36px);
 }
 .brandmark {
   display: inline-flex;
@@ -198,6 +191,16 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 }
 
 /* =====================================================================
+   TOP BAR — stroke linear gradiente
+   ===================================================================== */
+.top-bar {
+  height: 7px;
+  background: linear-gradient(to right, #512B1E 0%, #B76244 100%);
+  position: relative;
+  z-index: 100;
+}
+
+/* =====================================================================
    HERO
    ===================================================================== */
 .hero {
@@ -206,6 +209,15 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
   position: relative;
   overflow: hidden;
   background: var(--ink);
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('assets/bg-hero.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 0;
 }
 .hero__inner {
   display: grid;
@@ -216,6 +228,36 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 }
 @media (min-width: 1024px) {
   .hero__inner { grid-template-columns: 1.05fr 1fr; align-items: center; }
+}
+
+/* stamp */
+.stamp-wrapper {
+  position: absolute;
+  top: -36px;
+  right: -85px;
+  width: 162px;
+  height: 162px;
+  z-index: 3;
+}
+.stamp-txt {
+  position: absolute;
+  inset: 0;
+  width: 162px;
+  height: 162px;
+  animation: spin-stamp 18s linear infinite;
+  transform-origin: center center;
+}
+.stamp-iso {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+}
+@keyframes spin-stamp {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 .hero__copy { max-width: 720px; }
 .hero h1 {
@@ -985,57 +1027,15 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
 <!-- custom cursor (desktop only) -->
 <div class="lyvos-cursor" id="lyvosCursor" aria-hidden="true"></div>
 
+<!-- Stroke linear topo -->
+<div class="top-bar"></div>
+
 <!-- ===================================================================
      HEADER
      =================================================================== -->
 <header class="header" data-screen-label="Header">
   <a href="#" class="brandmark" aria-label="LYVOS — Ecossistema Nutricional">
-    <span class="brandmark__iso isotipo" aria-hidden="true">
-      <svg viewBox="0 0 100 100">
-        <defs>
-          <g id="ray-tick">
-            <rect x="49.4" y="2" width="1.2" height="8" fill="#dccbb7"/>
-          </g>
-        </defs>
-        <!-- outer ring -->
-        <circle cx="50" cy="50" r="40" fill="none" stroke="#dccbb7" stroke-width="0.9"/>
-        <!-- inner ring -->
-        <circle cx="50" cy="50" r="28" fill="none" stroke="#b76244" stroke-width="0.7"/>
-        <!-- center dot -->
-        <circle cx="50" cy="50" r="4" fill="#b76244"/>
-        <!-- radiating rays -->
-        <g>
-          <use href="#ray-tick" transform="rotate(0 50 50)"/>
-          <use href="#ray-tick" transform="rotate(15 50 50)"/>
-          <use href="#ray-tick" transform="rotate(30 50 50)"/>
-          <use href="#ray-tick" transform="rotate(45 50 50)"/>
-          <use href="#ray-tick" transform="rotate(60 50 50)"/>
-          <use href="#ray-tick" transform="rotate(75 50 50)"/>
-          <use href="#ray-tick" transform="rotate(90 50 50)"/>
-          <use href="#ray-tick" transform="rotate(105 50 50)"/>
-          <use href="#ray-tick" transform="rotate(120 50 50)"/>
-          <use href="#ray-tick" transform="rotate(135 50 50)"/>
-          <use href="#ray-tick" transform="rotate(150 50 50)"/>
-          <use href="#ray-tick" transform="rotate(165 50 50)"/>
-          <use href="#ray-tick" transform="rotate(180 50 50)"/>
-          <use href="#ray-tick" transform="rotate(195 50 50)"/>
-          <use href="#ray-tick" transform="rotate(210 50 50)"/>
-          <use href="#ray-tick" transform="rotate(225 50 50)"/>
-          <use href="#ray-tick" transform="rotate(240 50 50)"/>
-          <use href="#ray-tick" transform="rotate(255 50 50)"/>
-          <use href="#ray-tick" transform="rotate(270 50 50)"/>
-          <use href="#ray-tick" transform="rotate(285 50 50)"/>
-          <use href="#ray-tick" transform="rotate(300 50 50)"/>
-          <use href="#ray-tick" transform="rotate(315 50 50)"/>
-          <use href="#ray-tick" transform="rotate(330 50 50)"/>
-          <use href="#ray-tick" transform="rotate(345 50 50)"/>
-        </g>
-      </svg>
-    </span>
-    <span class="brandmark__lockup">
-      <span class="brandmark__type">LYVOS</span>
-      <span class="brandmark__sub">Ecossistema Nutricional</span>
-    </span>
+    <img src="assets/logo.svg" alt="LYVOS Ecossistema Nutricional" style="height: 44px; width: auto;">
   </a>
   <nav class="header__nav">FalaNutri · 29.05 · Fortaleza/CE</nav>
 </header>
@@ -1044,23 +1044,8 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
      BLOCO 1 · HERO
      =================================================================== -->
 <section class="section hero section--deep" data-screen-label="01 Hero" data-comment-anchor="hero" style="padding-bottom: 0;">
-  <!-- backdrop isotipo -->
-  <svg class="hero__iso isotipo" viewBox="0 0 600 600" aria-hidden="true">
-    <g fill="none" stroke="#dccbb7" stroke-width="0.8">
-      <circle cx="300" cy="300" r="70"/>
-      <circle cx="300" cy="300" r="120"/>
-      <circle cx="300" cy="300" r="180"/>
-      <circle cx="300" cy="300" r="245"/>
-    </g>
-    <g stroke="#b76244" stroke-width="0.6">
-      <circle cx="300" cy="300" r="285" fill="none"/>
-    </g>
-    <g fill="#dccbb7">
-      <!-- perimeter dots -->
-      <g id="hero-dots-host"></g>
-    </g>
-    <circle cx="300" cy="300" r="14" fill="#b76244"/>
-  </svg>
+  <!-- background foto -->
+  <div class="hero__bg" aria-hidden="true"></div>
 
   <div class="wrap hero__inner">
     <div class="hero__copy hero-stagger">
@@ -1075,7 +1060,12 @@ p { font-size: 1.0625rem; color: var(--sand-light); }
       <p class="hero__sub">Você não entra numa plataforma.<br/>Você entra num movimento.</p>
     </div>
 
-    <div class="hero__form-wrap">
+    <div class="hero__form-wrap" style="position: relative;">
+      <!-- stamp giratória -->
+      <div class="stamp-wrapper">
+        <img src="assets/stamp-txt.svg" class="stamp-txt" alt="">
+        <img src="assets/stamp-iso.svg" class="stamp-iso" alt="">
+      </div>
       <form class="form-card" data-form id="formHero" novalidate>
         <span class="form-card__label">Grupo VIP de Fundadores · 45 vagas</span>
         <div class="form-row">
